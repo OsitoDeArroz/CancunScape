@@ -1,75 +1,35 @@
 import React from "react";
+import { Form, Button } from 'rsuite';
 
 function Registro() {
     return (
         <>
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossOrigin="anonymous" />
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
-
-            <div className="mb-3">
-                <label htmlFor="" className="form-label">
-                    Nombre
-                </label>
-                <input
-                    type="text"
-                    className="form-control"
-                    name=""
-                    id=""
-                    aria-describedby="helpId"
-                    placeholder=""
-                />
-                <label htmlFor="" className="form-label">
-                    Apellidos
-                </label>
-                <input
-                    type="text"
-                    className="form-control"
-                    name=""
-                    id=""
-                    aria-describedby="helpId"
-                    placeholder=""
-                />
-                <label htmlFor="" className="form-label">
-                    Correo electronico
-                </label>
-                <input
-                    type="text"
-                    className="form-control"
-                    name=""
-                    id=""
-                    aria-describedby="helpId"
-                    placeholder=""
-                />
-                <label htmlFor="inputPasswords" className="form-label">
-                    Contraseña
-                </label>
-                <input
-                    type="password"
-                    className="form-control"
-                    name=""
-                    id=""
-                    aria-describedby="helpId"
-                    placeholder=""
-                    aria-labelledby="passwordHelpBlock"
-                />
-                <label htmlFor="inputPasswords" className="form-label">
-                    Confirma tu contraseña
-                </label>
-                <input
-                    type="password"
-                    className="form-control"
-                    name=""
-                    id=""
-                    aria-describedby="helpId"
-                    placeholder=""
-                    aria-labelledby="passwordHelpBlock"
-                />
-                <input
-                    type="submit"
-                    className="btn btn-outline-dark"
-                    defaultValue="Terminar registro"
-                />
-            </div>
+            <Form align="center">
+                <Form.Group controlId="nombre">
+                    <Form.ControlLabel>Nombre</Form.ControlLabel>
+                    <Form.Control name="nombre" />
+                </Form.Group>
+                <Form.Group controlId="apellidos">
+                    <Form.ControlLabel>Apellidos</Form.ControlLabel>
+                    <Form.Control name="apellidos" />
+                </Form.Group>
+                <Form.Group controlId="email">
+                    <Form.ControlLabel>Email</Form.ControlLabel>
+                    <Form.Control name="email" type="email" />
+                </Form.Group>
+                <Form.Group controlId="password">
+                    <Form.ControlLabel>Contraseña</Form.ControlLabel>
+                    <Form.Control name="password" type="password" autoComplete="off" />
+                </Form.Group>
+                <Form.Group controlId="password">
+                    <Form.ControlLabel>Confirmar contraseña</Form.ControlLabel>
+                    <Form.Control name="passwordConfirm" type="password" autoComplete="off" />
+                </Form.Group>
+                <Form.Group>
+                    <Button color="green" appearance="primary" href="/">Finalizar</Button>
+                    <Button color="red" appearance="subtle" href="/">Cancelar</Button>
+                </Form.Group>
+            </Form>
         </>
     );
 }
