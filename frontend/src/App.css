@@ -1,0 +1,177 @@
+.app {
+  display: flex;
+  flex-flow: column nowrap;
+  min-height: 85vh; 
+}
+
+.main {
+  flex-grow: 1;
+}
+
+.app-container {
+  background-color: #AFD3E2;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #F6F1F1;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.btn-dark{
+  background-color: #394867;
+}
+
+/*--CSS para la etiqueta card en los paquetes--*/
+.card {
+  height: 100%;
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-color{
+  background-color: #b9ebe6; /*#b8b8a8*/
+}
+
+.card-title{
+  color: #1B9C85;
+  font-style: oblique;
+}
+.card-text{
+  color: #213142;
+}
+/*----------------------------------------------*/
+
+/*--CSS para navbar--*/
+.bg-azul {
+  background-color: #1B6B93;
+}
+
+.navbar {
+  margin-bottom: 50px;
+}
+
+.custom-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.custom-link.active {
+  color: #93AEA1;
+}
+/*--------------------*/
+
+/*--CSS para el footer--*/
+.footer-container {
+  background-color: #1B6B93;  /*1B343F*/
+  color: #FFFFFF;
+  padding: 20px;
+}
+
+.footer-content {
+  margin-bottom: 20px;
+}
+
+.footer-social {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.social-icons a {
+  color: #ffffff;
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.social-icons a:last-child {
+  margin-right: 0;
+}
+
+/*CSS para el carrusel del inicio*/
+
+.carrousel{
+  width: 100%;
+}
+
+.conteCarrousel{
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.itemCarrousel{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.itemCarrouselTarjeta{
+  width: 100%;
+  height: 100%;
+}
+
+.itemCarrouselArrows{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px; 
+}
+
+.itemCarrouselArrows > i:hover {
+  cursor: pointer;
+}
+
+.itemCarrouselArrows > a > i{
+  color: white;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+}
