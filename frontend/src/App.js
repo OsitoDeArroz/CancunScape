@@ -7,6 +7,7 @@ import Promociones from './Paginas/promociones';
 import Login from './Paginas/login';
 import Footer from './componentes/Footer';
 import Registro from './Paginas/registro';
+import DescripcionTour from './componentes/descripcion';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path='/paquetes' element={<Paquetes />}></Route>
             <Route path='/promociones' element={<Promociones />}></Route>
             <Route path='/nosotros' element={<Nosotros />}></Route>
+            <Route path='/descripcion' element={<DescripcionTour />}></Route>
             <Route path='/login' element={<Login />}></Route>
             <Route path='/registro' element={<Registro />}></Route>
           </Routes>
