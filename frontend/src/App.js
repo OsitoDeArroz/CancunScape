@@ -7,7 +7,8 @@ import Promociones from './Paginas/promociones';
 import Login from './Paginas/login';
 import Footer from './componentes/Footer';
 import Registro from './Paginas/registro';
-import DescripcionTour from './componentes/descripcion';
+import Carrito from './componentes/Carrito';
+import DescripcionTour from './componentes/DescripcionTour';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path='/descripcion' element={<DescripcionTour />}></Route>
             <Route path='/login' element={<Login />}></Route>
             <Route path='/registro' element={<Registro />}></Route>
+            <Route path='/carrito' element={<Carrito />}></Route>
           </Routes>
         </BrowserRouter>
       </div>
