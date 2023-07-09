@@ -1,9 +1,11 @@
 import React from "react";
 import { Form, Button } from 'rsuite';
+import Encabezado from "../componentes/Encabezado";
 
 function Registro() {
     return (
         <>
+        <Encabezado/>
             <Form align="center">
                 <Form.Group controlId="nombre">
                     <Form.ControlLabel>Nombre</Form.ControlLabel>

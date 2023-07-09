@@ -17,12 +17,6 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -38,22 +32,15 @@
   color: #F6F1F1;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.btn-dark{
-  background-color: #394867;
-}
-
-/*--CSS para la etiqueta card en los paquetes--*/
+/*--CSS para la etiqueta card--*/
 .card {
   height: 100%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
 .card-img-top {
@@ -75,12 +62,13 @@
   color: #1B9C85;
   font-style: oblique;
 }
+
 .card-text{
   color: #213142;
 }
 /*----------------------------------------------*/
 
-/*--CSS para navbar--*/
+/*--CSS para el navbar--*/
 .bg-azul {
   background-color: #1B6B93;
 }
@@ -128,12 +116,9 @@
 
 /*CSS para el carrusel del inicio*/
 
-img {
-  width: 100%;
-  height: 100%;
-}
-
 .custom-slider{
   margin: auto;
-  width: 150vh;
+  width: 75%;
+  border: 3px solid rgb(34, 64, 91);
+  border-radius: 15px;
 }
