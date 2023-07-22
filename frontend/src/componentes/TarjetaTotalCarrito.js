@@ -31,7 +31,7 @@ function TarjetaTotalCarrito({ Titulo, Precio }) {
             </div>
             <div className="mt-auto" align="center">
                 <Link to="/pago">
-                    <Button color="green" appearance="primary" startIcon={<FaCreditCard/>}> Pagar</Button>
+                    <Button color="green" appearance="primary" startIcon={<FaCreditCard/>} block> Pagar</Button>
                 </Link>
             </div>
         </>

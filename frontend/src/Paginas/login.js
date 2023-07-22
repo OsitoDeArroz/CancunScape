@@ -1,7 +1,8 @@
 import React from "react";
-import { Form, Button } from 'rsuite';
+import { Form, Button, ButtonGroup} from 'rsuite';
 import { Link } from 'react-router-dom';
 import Encabezado from "../componentes/Encabezado";
+
 
 function Login() {
     return (
@@ -9,7 +10,8 @@ function Login() {
             <div align='center'>
                 <Encabezado />
                 <i className="bi bi-person fs-4"></i>
-                <Form>
+
+                <Form >
                     <Form.Group controlId="email">
                         <Form.ControlLabel>Email</Form.ControlLabel>
                         <Form.Control name="email" type="email" />
@@ -19,12 +21,14 @@ function Login() {
                         <Form.Control name="password" type="password" autoComplete="off" />
                     </Form.Group>
                     <Form.Group>
-                        <Link to="/">
-                            <Button color="green" appearance="primary">Iniciar sesión</Button>
-                        </Link>
-                        <Link to="/">
-                            <Button color="red" appearance="subtle">Cancelar</Button>
-                        </Link>
+                        <ButtonGroup >
+                            <Link to="/">
+                                <Button color="green" appearance="primary">Iniciar sesión</Button>
+                            </Link>
+                            <Link to="/">
+                                <Button color="red" appearance="subtle">Cancelar</Button>
+                            </Link>
+                        </ButtonGroup>
                     </Form.Group>
 
                     <Link to="/registro">

@@ -46,11 +46,6 @@ function DescripcionTour({ imgSrc, Titulo, Descripcion, Precio, Duracion }) {
                             <input type="number" id="ninos" name="ninos" className="form-control" min="0" max="20" />
                             <span id="precioNinos" hidden>$0</span>
                         </div>
-                        <div className="mb-3">
-                            <label for="infantes">Infantes:</label>
-                            <input type="number" id="infantes" name="infantes" className="form-control" min="0" max="15" />
-                            <span id="precioInfantes" hidden>$0</span>
-                        </div>
                         <h5>Total: <span id="precioTotal">{Precio} MXN</span></h5>
                         <ButtonToolbar>
                             <Link to="/carrito">

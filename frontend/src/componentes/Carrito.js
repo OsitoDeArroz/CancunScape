@@ -43,7 +43,7 @@ function Carrito() {
                             </div>
 
                             <Link to="/descripcion">
-                                <Button color="grey" appearance="primary" startIcon={<FaArrowLeft />}>Regresar</Button>
+                                <Button appearance="primary" startIcon={<FaArrowLeft />}>Regresar</Button>
                             </Link>
                         </div>
                     </div>
