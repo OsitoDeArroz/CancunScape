@@ -3,6 +3,7 @@ import importImages from "./ImportImagenes";
 import Encabezado from "./Encabezado";
 import { Link } from "react-router-dom";
 import { Button, ButtonToolbar } from "rsuite";
+import { FaCartPlus, FaArrowLeft } from "react-icons/fa";
 import "../assets/css/descripcionTour.css";
 
 const images = importImages(require.context("../assets/images", false, /\.(png|jpe?g|svg)$/));
@@ -53,10 +54,10 @@ function DescripcionTour({ imgSrc, Titulo, Descripcion, Precio, Duracion }) {
                         <h5>Total: <span id="precioTotal">{Precio} MXN</span></h5>
                         <ButtonToolbar>
                             <Link to="/carrito">
-                                <Button color="green" appearance="primary">Reservar</Button>
+                                <Button color="green" appearance="primary" startIcon={<FaCartPlus />}>Reservar</Button>
                             </Link>
                             <Link to="/paquetes">
-                                <Button appearance="primary">Regresar</Button>
+                                <Button appearance="primary" startIcon={<FaArrowLeft />}>Regresar</Button>
                             </Link>
                         </ButtonToolbar>
                         <hr />

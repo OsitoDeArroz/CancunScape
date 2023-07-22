@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "rsuite";
 import { Link } from "react-router-dom";
+import { FaInfoCircle } from "react-icons/fa";
 import "rsuite/dist/rsuite.min.css";
 
 function TarjetaTour({ imgSrc, title, description, duration, price, link }) {
@@ -30,7 +31,7 @@ function TarjetaTour({ imgSrc, title, description, duration, price, link }) {
                     <h5 className="card-text" style={cardTextStyle}>MXN {price}</h5>
                     <div className="mt-auto" align="center">
                         <Link to={link}>
-                            <Button color="yellow" appearance="subtle"> Más información </Button>
+                            <Button color="yellow" appearance="subtle" startIcon={<FaInfoCircle/>}> Más información </Button>
                         </Link>
                     </div>
                 </div>

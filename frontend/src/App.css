@@ -60,11 +60,15 @@
 
 .card-title{
   color: #1B9C85;
-  font-style: oblique;
 }
 
 .card-text{
   color: #213142;
+}
+
+.total-container {
+  display: flex;
+  justify-content: space-between;
 }
 /*----------------------------------------------*/
 

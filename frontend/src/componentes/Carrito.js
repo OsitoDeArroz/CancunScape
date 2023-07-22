@@ -1,63 +1,54 @@
 import React from "react";
-import importImages from "./ImportImagenes"
-import { Button, ButtonToolbar } from "rsuite";
+import { Button } from "rsuite";
+import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Encabezado from "./Encabezado";
+import TarjetaCarrito from "./TarjetaCarrito";
+import importImages from "./ImportImagenes";
+import TarjetaTotalCarrito from "./TarjetaTotalCarrito";
 
-const images = importImages(require.context("../assets/images", false, /\.(png|jpe?g|svg)$/));
+const images = importImages(require.context("../assets/images", false, /\.(png|jpe?g|svg)$/)); //se guardan todas las imagenes dentro de la carpeta images
 
-function Carrito({ imgSrc, Titulo, Fecha, Precio }) {
-    imgSrc = images['snorkel.png'];
-    Titulo = "Xcaret Plus";
-    Precio = 1400;
-    Fecha = "10/12/2023";
+function Carrito() {
     return (
         <>
             <Encabezado />
             <div className="container">
-                <h2>Informacion de reserva</h2>
                 <div className="row">
                     <div className="col-lg-6">
-                        <img src={imgSrc} className="img-fluid" alt="Imagen" />
+                        <TarjetaCarrito
+                            imgSrc={images['snorkel.png']}
+                            Titulo="Xcaret Plus"
+                            Precio={5000}
+                            onEdit={() => console.log("Editar")}
+                            onRemove={() => console.log("Remover")} />
+
+                        <TarjetaCarrito
+                            imgSrc={images['excursion.png']}
+                            Titulo="Chichén Itzá y Valladolid - Baño en Cenote y Almuerzo"
+                            Precio={5000}
+                            onEdit={() => console.log("Editar")}
+                            onRemove={() => console.log("Remover")} />
+
                     </div>
                     <div className="col-lg-6">
-
-                        <h3 className="desc-title">{Titulo}</h3>
-                        <h5 className="desc-text">Fecha: {Fecha}</h5>
-                        <section>
-                            <h4>Cantidad de personas</h4>
-                            <div className="mb-3">
-                                <label for="adultos">2x Adultos</label>
-                                <span id="precioAdultos"> $1000</span>
+                        <div align='center'>
+                            <div className="card mb-3">
+                                <div className="card-body card-color">
+                                    <TarjetaTotalCarrito
+                                        Titulo='Chichén Itzá y Valladolid - Baño en Cenote y Almuerzo'
+                                        Precio={5000}
+                                    />
+                                </div>
                             </div>
 
-                            <hr />
-                            <div className="mb-3">
-                                <label for="ninos">2x Niños </label>
-                                <span id="precioNinos"> $400</span>
-                            </div>
-                            <div className="mb-3">
-                                <label for="infantes" hidden>0x Infantes</label>
-                                <span id="precioInfantes" hidden>$0</span>
-                            </div>
-                            <hr />
-                            <h5>Total: <span id="precioTotal">{Precio} MXN</span></h5>
-                        </section>
-                        <ButtonToolbar>
-                            <Link to="/pago">
-                                <Button color="green" appearance="primary">Pagar</Button>
-                            </Link>
-                            <Link to="/">
-                                <Button color="red" appearance="primary">Cancelar</Button>
-                            </Link>
                             <Link to="/descripcion">
-                                <Button color="grey" appearance="primary">Regresar</Button>
+                                <Button color="grey" appearance="primary" startIcon={<FaArrowLeft />}>Regresar</Button>
                             </Link>
-                        </ButtonToolbar>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </>
     );
 }

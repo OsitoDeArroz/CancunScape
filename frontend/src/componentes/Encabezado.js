@@ -30,9 +30,9 @@ function Encabezado() {
                         </Link>
                     </div>
                 </div>
-                <a className="navbar-brand" href="/login">
+                <Link to="/login" className="navbar-brand">
                     <i className="bi bi-person fs-4"></i>
-                </a>
+                </Link>
             </nav>
         </>
     )
