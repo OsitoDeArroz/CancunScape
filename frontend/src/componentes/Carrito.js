@@ -1,6 +1,7 @@
 import React from "react";
 import importImages from "./ImportImagenes"
 import { Button, ButtonToolbar } from "rsuite";
+import { Link } from "react-router-dom";
 import Encabezado from "./Encabezado";
 
 const images = importImages(require.context("../assets/images", false, /\.(png|jpe?g|svg)$/));
@@ -29,7 +30,7 @@ function Carrito({ imgSrc, Titulo, Fecha, Precio }) {
                                 <label for="adultos">2x Adultos</label>
                                 <span id="precioAdultos"> $1000</span>
                             </div>
-                            
+
                             <hr />
                             <div className="mb-3">
                                 <label for="ninos">2x Niños </label>
@@ -43,9 +44,15 @@ function Carrito({ imgSrc, Titulo, Fecha, Precio }) {
                             <h5>Total: <span id="precioTotal">{Precio} MXN</span></h5>
                         </section>
                         <ButtonToolbar>
-                            <Button color="green" appearance="primary" href="/pago">Pagar</Button>
-                            <Button color="red" appearance="primary" href="/">Cancelar</Button>
-                            <Button color="grey" appearance="primary" href="/descripcion">Regresar</Button>
+                            <Link to="/pago">
+                                <Button color="green" appearance="primary">Pagar</Button>
+                            </Link>
+                            <Link to="/">
+                                <Button color="red" appearance="primary">Cancelar</Button>
+                            </Link>
+                            <Link to="/descripcion">
+                                <Button color="grey" appearance="primary">Regresar</Button>
+                            </Link>
                         </ButtonToolbar>
                     </div>
                 </div>

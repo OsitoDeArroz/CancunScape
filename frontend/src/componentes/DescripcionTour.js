@@ -1,6 +1,7 @@
 import React from "react";
 import importImages from "./ImportImagenes";
 import Encabezado from "./Encabezado";
+import { Link } from "react-router-dom";
 import { Button, ButtonToolbar } from "rsuite";
 import "../assets/css/descripcionTour.css";
 
@@ -51,8 +52,12 @@ function DescripcionTour({ imgSrc, Titulo, Descripcion, Precio, Duracion }) {
                         </div>
                         <h5>Total: <span id="precioTotal">{Precio} MXN</span></h5>
                         <ButtonToolbar>
-                            <Button color="green" appearance="primary" href="/carrito">Reservar</Button>
-                            <Button color="grey" appearance="primary" href="/paquetes">Regresar</Button>
+                            <Link to="/carrito">
+                                <Button color="green" appearance="primary">Reservar</Button>
+                            </Link>
+                            <Link to="/paquetes">
+                                <Button appearance="primary">Regresar</Button>
+                            </Link>
                         </ButtonToolbar>
                         <hr />
                     </div>
