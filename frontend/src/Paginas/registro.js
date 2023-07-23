@@ -10,12 +10,12 @@ function Registro() {
                 <Encabezado />
                 <Form>
                     <Form.Group controlId="nombre">
-                        <Form.ControlLabel>Nombre</Form.ControlLabel>
+                        <Form.ControlLabel>Nombre completo</Form.ControlLabel>
                         <Form.Control name="nombre" />
                     </Form.Group>
-                    <Form.Group controlId="apellidos">
-                        <Form.ControlLabel>Apellidos</Form.ControlLabel>
-                        <Form.Control name="apellidos" />
+                    <Form.Group controlId="contacto">
+                        <Form.ControlLabel>Telefono</Form.ControlLabel>
+                        <Form.Control name="contacto" type="number" />
                     </Form.Group>
                     <Form.Group controlId="email">
                         <Form.ControlLabel>Email</Form.ControlLabel>
