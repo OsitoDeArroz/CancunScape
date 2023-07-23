@@ -27,7 +27,7 @@ function TarjetaTour({ imgSrc, title, description, duration, price, link }) {
                 <div className="card-body card-color">
                     <h4 className="card-title" style={cardTitleStyle}>{title}</h4>
                     <p className="card-text" style={cardTextStyle}>{description}</p>
-                    <p className="card-text" style={cardTextStyle}>Duración: {duration}</p>
+                    <p className="card-text" style={cardTextStyle}>Duración: {duration} dias</p>
                     <h5 className="card-text" style={cardTextStyle}>MXN {price}</h5>
                     <div className="mt-auto" align="center">
                         <Link to={link}>

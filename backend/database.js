@@ -5,7 +5,7 @@ const connection = mysql.createConnection({
     hostname : "localhost",
     user: "root",
     password : "",
-    database : "ecommerce"
+    database : "CancunScape"
 });
 
 

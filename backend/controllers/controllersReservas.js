@@ -1,19 +1,34 @@
 const connection = require("../database.js")
+
+/*
+sp_insertarusuario
+
+sp_insertarreserva
+sp_eliminarusuario
+
+sp_eliminarreservas
+sp_actualizarusuario 
+
+sp_actualizarreservas
+
+sp_mostrarusuarios*/
+
+
 //ver
-const obtenerCategorias = (req, res) => {
-    connection.query("SELECT * FROM categorias", (error, results) => {
+const obtenerReservas = (req, res) => {
+    connection.query("CALL sp_mostrarreservas()", (error, results) => {
         if(error){
-            console.error("No se obtuvieron las categorias",error);
-            res.status(500).json({error:"No se obtuvieron las categorias"});
+            console.error("No se obtuvieron las reservas",error);
+            res.status(500).json({error:"No se obtuvieron las reservas"});
         }else{
-            console.log("Se obtuvieron las categorias");
+            console.log("Se obtuvieron las reservas");
             res.json(results);
         }
     });
 };
 
 //ver por id
-const obtenerCategoriaPorId = (req, res) => {
+const obtenerReservaPorId = (req, res) => {
 const id= req.params.id_categoria;
 
     connection.query("SELECT * FROM categorias WHERE id_categoria=(?)",[id], (error, results) => {
@@ -79,8 +94,8 @@ const actualizarCategoria = (req, res) => {
 }
 
 module.exports = {
-    obtenerCategorias,
-    obtenerCategoriaPorId,
+    obtenerReservas,
+    obtenerReservaPorId,
     crearCategoria,
     borrarCategoria,
     actualizarCategoria,
