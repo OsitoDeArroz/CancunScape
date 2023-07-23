@@ -10,13 +10,22 @@ function TarjetaTour({ imgSrc, title, description, duration, price, link }) {
         fontFamily: 'Pacifico, cursive',
         fontSize: '22px',
         marginBottom: '10px',
-        minHeight: '60px'
+        minHeight: '50px'
     };
 
     const cardTextStyle = {
         fontFamily: 'Roboto, sans-serif',
         fontSize: '16px',
-        marginBottom: '20px',
+        minHeight: '50px'
+    };
+
+    const recortarDescripcion = (texto, limitePalabras) => {
+        const palabras = texto.split(' ');
+        if (palabras.length <= limitePalabras) {
+            return texto;
+        } else {
+            return palabras.slice(0, limitePalabras).join(' ') + '...';
+        }
     };
 
     return (
@@ -27,6 +36,9 @@ function TarjetaTour({ imgSrc, title, description, duration, price, link }) {
                 </Link>
                 <div className="card-body card-color" >
                     <h4 className="card-title" style={cardTitleStyle}>{title}</h4>
+                    <p className="card-text" style={cardTextStyle}>
+                        {recortarDescripcion(description, 15)}
+                    </p>
                     <p className="card-text" style={cardTextStyle}>Duración: {duration} horas</p>
                     <h5 className="card-text" style={cardTextStyle}>Precio: MXN {price}</h5>
                     <div className="mt-auto" align="center">
