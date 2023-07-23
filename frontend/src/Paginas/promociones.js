@@ -1,20 +1,40 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Encabezado from "../componentes/Encabezado";
 import TarjetaTour from "../componentes/TarjetaTour";
-import importImages from "../componentes/ImportImagenes";
-
-const images = importImages(require.context("../assets/images", false, /\.(png|jpe?g|svg)$/));
+import axios from "axios";
 
 function Promociones() {
+    const [tours, setTours] = useState([]);
+
+    useEffect(() => {
+        // Hacer la solicitud GET a la API para obtener los datos de los tours
+        axios.get('http://localhost:3001/tours')
+            .then(response => {
+                // En este punto, la respuesta contiene los datos del servidor
+                const toursData = response.data[0]; // Obtenemos la primera parte de la respuesta que contiene los datos de los tours
+                setTours(toursData); // Actualizamos el estado con los datos recibidos
+            })
+            .catch(error => {
+                console.error('Error al hacer la solicitud:', error);
+            });
+    }, []);
+
     return (
         <>
             <Encabezado />
             <div className="container">
                 <div className="row">
-                    <TarjetaTour imgSrc={images['excursion.png']} title='Xel-Há Todo Incluído' description='Disfruta de esta maravilla natural en un parque todo incluído con atractivos ecológicos e innumerables experiencias divertidas.' duration='4d' price='135' link='/descripcion' />
-                    <TarjetaTour imgSrc={images['itza.png']} title='Xplor Park' description='Emocionante parque de aventuras en la jungla, cavernas y cenotes. Tirolesas, vehículos anfíbios, balsas y ríos subterráneos.' duration='3 hr' price='135' link='/descripcion' />
-                    <TarjetaTour imgSrc={images['excursion.png']} title='Xel-Há Todo Incluído' description='Disfruta de esta maravilla natural en un parque todo incluído con atractivos ecológicos e innumerables experiencias divertidas.' duration='4d' price='135' link='/descripcion' />
-                    <TarjetaTour imgSrc={images['itza.png']} title='Xplor Park' description='Emocionante parque de aventuras en la jungla, cavernas y cenotes. Tirolesas, vehículos anfíbios, balsas y ríos subterráneos.' duration='3 hr' price='135' link='/descripcion' />
+                    {tours.map(tour => (
+                        <TarjetaTour
+                            key={tour.id_tours}
+                            imgSrc={tour.imagen}
+                            title={tour.nombre_tours}
+                            description={tour.descripcion_tours}
+                            duration={tour.duracion}
+                            price={tour.precio}
+                            link={tour.id_tours}
+                        />
+                    ))}
                 </div>
             </div>
 

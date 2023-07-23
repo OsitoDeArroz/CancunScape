@@ -32,7 +32,7 @@ function Paquetes() {
                             description={tour.descripcion_tours}
                             duration={tour.duracion}
                             price={tour.precio}
-                            link={"/descripcion"}
+                            link={tour.id_tours}
                         />
                     ))}
                 </div>

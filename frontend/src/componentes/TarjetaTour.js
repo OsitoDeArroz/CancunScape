@@ -31,7 +31,7 @@ function TarjetaTour({ imgSrc, title, description, duration, price, link }) {
     return (
         <div className="col-lg-4">
             <div className="card mb-3">
-                <Link to={link}>
+                <Link to={`/descripcion/${link}`}>
                     <img src={imgSrc} className="card-img-top" alt={title} />
                 </Link>
                 <div className="card-body card-color" >
@@ -42,7 +42,7 @@ function TarjetaTour({ imgSrc, title, description, duration, price, link }) {
                     <p className="card-text" style={cardTextStyle}>Duración: {duration} horas</p>
                     <h5 className="card-text" style={cardTextStyle}>Precio: MXN {price}</h5>
                     <div className="mt-auto" align="center">
-                        <Link to={link}>
+                        <Link to={`/descripcion/${link}`}>
                             <Button color="yellow" appearance="subtle" startIcon={<FaInfoCircle />}> Más información </Button>
                         </Link>
                     </div>

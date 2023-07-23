@@ -5,9 +5,9 @@ const controllersTours = require('../controllers/controllersTours');
 const router = express.Router()
 
 router.get('/', controllersTours.obtenerTours);
-router.get('/:id_tour', controllersTours.obtenerTourPorId);
+router.get('/:id', controllersTours.obtenerTourPorId);
 router.post('/', controllersTours.crearTour);
-router.delete('/:id_tour', controllersTours.borrarTour);
-router.patch('/:id_tour', controllersTours.actualizarTour);
+router.delete('/:id', controllersTours.borrarTour);
+router.patch('/:id', controllersTours.actualizarTour);
 
 module.exports = router;

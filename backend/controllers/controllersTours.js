@@ -17,7 +17,7 @@ const obtenerTours = (req, res) => {
 const obtenerTourPorId = (req, res) => {
     const id_tour = req.params.id;
 
-    connection.query("SELECT * FROM tours WHERE id_tour=(?)",[id_tour], (error, results) => {
+    connection.query("CALL sp_mostrartourid(?)", [id_tour], (error, results) => {
         if(error){
             console.error("No se obtuvo el tour",error);
             res.status(500).json({error:"No se obtuvo el tour"});

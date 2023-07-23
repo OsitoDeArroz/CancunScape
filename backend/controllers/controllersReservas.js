@@ -3,7 +3,7 @@ const connection = require("../database.js")
 /*
 sp_insertarusuario
 
-sp_insertarreserva
+
 sp_eliminarusuario
 
 sp_eliminarreservas
@@ -46,22 +46,22 @@ const id= req.params.id_categoria;
 };
 
 //insertar
-const crearCategoria = (req, res) => {
-    const {nombre} = req.body;
+const crearReserva = (req, res) => {
+    const {nombre, fecha, usuario, tour} = req.body;
 
-    connection.query("insert into categorias (nombre) value(?)", [nombre], (error, results) => {
+    connection.query("CALL sp_insertarreserva(?, ?, ?, ?)", [nombre, fecha, usuario, tour], (error, results) => {
         if(error){
-            console.error("No se creo la categoria correctamente",error);
-            res.status(500).json({error:"No se creo la categoria correctamente"});
+            console.error("No se creo la reserva correctamente",error);
+            res.status(500).json({error:"No se creo la reserva correctamente"});
         }else{
-            console.log("Se agrego la categoria correctamente");
-            res.json({Message:"La categoria se creo correctamente"});
+            console.log("Se agrego la reserva correctamente");
+            res.json({Message:"La reserva se creo correctamente"});
         }
     });
 }
 
 //borrar
-const borrarCategoria = (req, res) => {
+const borrarReserva = (req, res) => {
     const {id_categoria} = req.body;
 
     connection.query("delete from categorias where id_categoria = (?)", [id_categoria], (error, results) => {
@@ -79,7 +79,7 @@ const borrarCategoria = (req, res) => {
 }
 
 //actualizar
-const actualizarCategoria = (req, res) => {
+const actualizarReserva = (req, res) => {
     const {id_categoria} = req.body;
     const {nombre,imagen_categoria}=req.body;
     connection.query("update categorias where nombre = (?), imagen_categoria=(?) set id_categoria = (?)", [nombre,imagen_categoria,id_categoria], (error, results) => {
@@ -96,7 +96,7 @@ const actualizarCategoria = (req, res) => {
 module.exports = {
     obtenerReservas,
     obtenerReservaPorId,
-    crearCategoria,
-    borrarCategoria,
-    actualizarCategoria,
+    crearReserva,
+    borrarReserva,
+    actualizarReserva,
 }

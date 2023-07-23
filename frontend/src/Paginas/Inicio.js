@@ -1,12 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Encabezado from "../componentes/Encabezado";
 import Carrusel from "../componentes/Carrucel";
+import axios from "axios";
 import TarjetaTour from "../componentes/TarjetaTour";
-import importImages from "../componentes/ImportImagenes";
-
-const images = importImages(require.context("../assets/images", false, /\.(png|jpe?g|svg)$/));
 
 function Inicio() {
+    const [tours, setTours] = useState([]);
+
+    useEffect(() => {
+        // Hacer la solicitud GET a la API para obtener los datos de los tours
+        axios.get('http://localhost:3001/tours')
+            .then(response => {
+                // En este punto, la respuesta contiene los datos del servidor
+                const toursData = response.data[0]; // Obtenemos la primera parte de la respuesta que contiene los datos de los tours
+                setTours(toursData); // Actualizamos el estado con los datos recibidos
+            })
+            .catch(error => {
+                console.error('Error al hacer la solicitud:', error);
+            });
+    }, []);
+
     return (
         <>
             <Encabezado />
@@ -14,14 +27,17 @@ function Inicio() {
             <hr />
             <div className="container">
                 <div className="row">
-                    <TarjetaTour imgSrc={images['playa.jpg']} title='Xichen Deluxe' description='Visita el sitio arqueológico más emblemático de la cultura Maya, incluida una visita a la ciudad de Valladolid y al Cenote Tsukan.' duration='4d' price='135' link='/descripcion' />
-                    <TarjetaTour imgSrc={images['excursion.png']} title='Xel-Há Todo Incluído' description='Disfruta de esta maravilla natural en un parque todo incluído con atractivos ecológicos e innumerables experiencias divertidas.' duration='4d' price='135' link='/descripcion' />
-                    <TarjetaTour imgSrc={images['itza.png']} title='Xplor Park' description='Emocionante parque de aventuras en la jungla, cavernas y cenotes. Tirolesas, vehículos anfíbios, balsas y ríos subterráneos.' duration='3 hr' price='135' link='/descripcion' />
-                    <TarjetaTour imgSrc={images['snorkel.png']} title='Xcaret Plus' description='Una visita obligada para los visitantes de Cancún y la Riviera Maya. Premiado como uno de los mejores parques del mundo.' duration='3d' price='188' link='/descripcion' />
-                    <TarjetaTour imgSrc={images['excursion.png']} title='Xel-Há Todo Incluído' description='Disfruta de esta maravilla natural en un parque todo incluído con atractivos ecológicos e innumerables experiencias divertidas.' duration='4d' price='135' link='/descripcion' />
-                    <TarjetaTour imgSrc={images['itza.png']} title='Xplor Park' description='Emocionante parque de aventuras en la jungla, cavernas y cenotes. Tirolesas, vehículos anfíbios, balsas y ríos subterráneos.' duration='3 hr' price='135' link='/descripcion' />
-                    <TarjetaTour imgSrc={images['excursion.png']} title='Xel-Há Todo Incluído' description='Disfruta de esta maravilla natural en un parque todo incluído con atractivos ecológicos e innumerables experiencias divertidas.' duration='4d' price='135' link='/descripcion' />
-                    <TarjetaTour imgSrc={images['itza.png']} title='Xplor Park' description='Emocionante parque de aventuras en la jungla, cavernas y cenotes. Tirolesas, vehículos anfíbios, balsas y ríos subterráneos.' duration='3 hr' price='135' link='/descripcion' />
+                    {tours.slice(0, 6).map(tour => (
+                        <TarjetaTour
+                            key={tour.id_tours}
+                            imgSrc={tour.imagen}
+                            title={tour.nombre_tours}
+                            description={tour.descripcion_tours}
+                            duration={tour.duracion}
+                            price={tour.precio}
+                            link={"/descripcion"}
+                        />
+                    ))}
                 </div>
             </div>
         </>

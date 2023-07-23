@@ -2,7 +2,7 @@ const mysql = require('mysql2');
 
 
 const connection = mysql.createConnection({
-    hostname : "localhost",
+    hostname : "Localhost",
     user: "root",
     password : "",
     database : "CancunScape"
