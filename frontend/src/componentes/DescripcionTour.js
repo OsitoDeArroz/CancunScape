@@ -36,7 +36,7 @@ function DescripcionTour() {
         // Manejo de error si los datos no se obtienen correctamente
         return <div>Error al cargar los datos del tour</div>;
     }
-    console.log(tour);
+    
     return (
 
         <>

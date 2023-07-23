@@ -7,7 +7,6 @@ const routerReservas = require('./router/routerReservas');
 const routerTours = require('./router/routerTours');
 
 app.use(cors());
-
 app.use(express.json());
 
 app.use('/reservas', routerReservas);
