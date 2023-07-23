@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Encabezado from "./Encabezado";
 import { Link, useParams } from "react-router-dom";
-import { Button, ButtonToolbar } from "rsuite";
+import { Form, ButtonToolbar, Button, DatePicker, ButtonGroup } from "rsuite";
 import { FaCartPlus, FaArrowLeft } from "react-icons/fa";
 import "../assets/css/descripcionTour.css";
 import axios from "axios";
+import isBefore from 'date-fns/isBefore';
 
 function DescripcionTour() {
     const { id } = useParams(); // Obtener la ID del tour desde la URL
@@ -15,13 +16,13 @@ function DescripcionTour() {
         // Hacer la solicitud GET a la API para obtener los detalles del tour por ID
         axios
             .get(`http://localhost:3001/tours/${id}`)
-            .then(response => {
+            .then((response) => {
                 // En este punto, la respuesta contiene los detalles del tour con la ID especificada
                 const tourData = response.data;
                 setTour(tourData); // Actualizamos el estado con los datos recibidos
                 setLoading(false); // La carga de datos ha finalizado, actualizamos el estado de carga
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error("Error al hacer la solicitud:", error);
                 setLoading(false); // La carga de datos ha finalizado, actualizamos el estado de carga
             });
@@ -36,9 +37,8 @@ function DescripcionTour() {
         // Manejo de error si los datos no se obtienen correctamente
         return <div>Error al cargar los datos del tour</div>;
     }
-    
-    return (
 
+    return (
         <>
             <Encabezado />
 
@@ -50,39 +50,41 @@ function DescripcionTour() {
                         <img src={tour.imagen} className="img-fluid" alt="Imagen" />
                     </div>
                     <div className="col-lg-6">
-
                         <h3 className="desc-title">{tour.nombre_tours}</h3>
                         <p className="desc-text">{tour.descripcion_tours}</p>
-                        <p className="desc-text">Duracion: {tour.duracion} dias</p>
+                        <p className="desc-text">Duracion: {tour?.duracion} dias</p>
                         <h4>Reserva</h4>
-                        <div className="mb-3">
-                            <label htmlFor="fecha">Fecha:</label>
-                            <input type="date" id="fecha" name="fecha" className="form-control" />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="adultos">Adultos:</label>
-                            <input type="number" id="adultos" name="adultos" className="form-control" min="0" max="25" />
-                            <span id="precioAdultos" hidden>$0</span>
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="ninos">Niños:</label>
-                            <input type="number" id="ninos" name="ninos" className="form-control" min="0" max="20" />
-                            <span id="precioNinos" hidden>$0</span>
-                        </div>
-                        <h5>Total: <span id="precioTotal">{tour.precio} MXN</span></h5>
-                        <ButtonToolbar>
-                            <Link to="/carrito">
-                                <Button color="green" appearance="primary" startIcon={<FaCartPlus />}>Reservar</Button>
-                            </Link>
-                            <Link to="/paquetes">
-                                <Button appearance="primary" startIcon={<FaArrowLeft />}>Regresar</Button>
-                            </Link>
-                        </ButtonToolbar>
-                        <hr />
+                        <Form >
+                            <Form.Group controlId="email">
+                                <DatePicker disabledDate={date => isBefore(date, new Date())} disabledHours={hour => hour < 6 || hour > 20} format="yyyy-MM-dd HH:mm" />
+                            </Form.Group>
+                            <Form.Group controlId="adultos">
+                                <Form.ControlLabel>Adultos:</Form.ControlLabel>
+                                <Form.Control name="adultos" type="number" min={0} max={25} />
+                            </Form.Group>
+                            <Form.Group controlId="ninos">
+                                <Form.ControlLabel>Niños:</Form.ControlLabel>
+                                <Form.Control name="adultos" type="number" min={0} max={20} />
+                            </Form.Group>
+                            <Form.Group>
+                                <ButtonToolbar>
+                                    <Link to="/carrito">
+                                        <Button color="green" appearance="primary" startIcon={<FaCartPlus />}>
+                                            Reservar
+                                        </Button>
+                                    </Link>
+                                    <Link to="/paquetes">
+                                        <Button appearance="primary" startIcon={<FaArrowLeft />}>
+                                            Regresar
+                                        </Button>
+                                    </Link>
+                                </ButtonToolbar>
+                            </Form.Group>
+                        </Form>
+
                     </div>
                 </div>
             </div>
-
         </>
     );
 }
