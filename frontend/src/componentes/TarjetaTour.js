@@ -16,7 +16,7 @@ function TarjetaTour({ imgSrc, title, description, duration, price, link }) {
     const cardTextStyle = {
         fontFamily: 'Roboto, sans-serif',
         fontSize: '16px',
-        minHeight: '50px'
+        minHeight: '50px',
     };
 
     const recortarDescripcion = (texto, limitePalabras) => {

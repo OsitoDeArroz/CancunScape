@@ -30,20 +30,18 @@ function Carrito() {
                 <div className="row">
                     <div className="col-lg-6">
 
-
                     </div>
                     <div className="col-lg-6">
                         <div align='center'>
                             <div className="card mb-3">
                                 <div className="card-body card-color">
                                     <TarjetaTotalCarrito
-                                        Titulo='Chichén Itzá y Valladolid - Baño en Cenote y Almuerzo'
-                                        Precio={5000}
+                                    
                                     />
                                 </div>
                             </div>
 
-                            <Link to="/descripcion">
+                            <Link to="/">
                                 <Button appearance="primary" startIcon={<FaArrowLeft />}>Regresar</Button>
                             </Link>
                         </div>

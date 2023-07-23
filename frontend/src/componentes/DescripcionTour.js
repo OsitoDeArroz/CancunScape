@@ -9,26 +9,36 @@ import axios from "axios";
 function DescripcionTour() {
     const { id } = useParams(); // Obtener la ID del tour desde la URL
     const [tour, setTour] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         // Hacer la solicitud GET a la API para obtener los detalles del tour por ID
-        axios.get(`http://localhost:3001/tours/${id}`)
+        axios
+            .get(`http://localhost:3001/tours/${id}`)
             .then(response => {
                 // En este punto, la respuesta contiene los detalles del tour con la ID especificada
                 const tourData = response.data;
                 setTour(tourData); // Actualizamos el estado con los datos recibidos
+                setLoading(false); // La carga de datos ha finalizado, actualizamos el estado de carga
             })
             .catch(error => {
-                console.error('Error al hacer la solicitud:', error);
+                console.error("Error al hacer la solicitud:", error);
+                setLoading(false); // La carga de datos ha finalizado, actualizamos el estado de carga
             });
     }, [id]);
 
-    if (!tour) {
-        // Muestra un mensaje de carga o maneja el estado mientras se obtienen los datos
+    if (loading) {
+        // Muestra un mensaje de carga mientras se obtienen los datos
         return <div>Cargando...</div>;
     }
 
+    if (!tour) {
+        // Manejo de error si los datos no se obtienen correctamente
+        return <div>Error al cargar los datos del tour</div>;
+    }
+    console.log(tour);
     return (
+
         <>
             <Encabezado />
 
