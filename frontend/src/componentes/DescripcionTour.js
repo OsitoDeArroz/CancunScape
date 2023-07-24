@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Encabezado from "./Encabezado";
 import { Link, useParams } from "react-router-dom";
-import { Form, ButtonToolbar, Button, DatePicker, InputNumber } from "rsuite";
+import { Form, ButtonToolbar, Button, DatePicker, InputNumber, Progress } from "rsuite";
 import { FaCartPlus, FaArrowLeft } from "react-icons/fa";
 import "../assets/css/descripcionTour.css";
 import axios from "axios";
@@ -96,11 +96,11 @@ function DescripcionTour() {
                                     </Form.Group>
                                     <Form.Group controlId="adultos-3">
                                         <Form.ControlLabel>Adultos:</Form.ControlLabel>
-                                        <Form.Control style={{ width: 160 }} value={cantidadAdultos} name="adultos" type="number" min={0} max={25} accepter={InputNumber} onChange={value => setCantidadAdultos(parseInt(value, 10))} />
+                                        <Form.Control style={{ width: 160 }} value={cantidadAdultos} name="adultos" type="number" min={1} max={25} accepter={InputNumber} onChange={value => setCantidadAdultos(parseInt(value, 10))} />
                                     </Form.Group>
                                     <Form.Group controlId="ninos-3">
                                         <Form.ControlLabel>Niños:</Form.ControlLabel>
-                                        <Form.Control style={{ width: 160 }} value={cantidadNinos} name="ninos" type="number" min={0} max={20} onChange={value => setCantidadNinos(parseInt(value, 10))} />
+                                        <Form.Control style={{ width: 160 }} value={cantidadNinos} name="ninos" type="number" min={0} max={20} accepter={InputNumber} onChange={value => setCantidadNinos(parseInt(value, 10))} />
                                     </Form.Group>
                                     <Form.Group>
                                         <ButtonToolbar>
