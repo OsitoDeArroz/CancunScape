@@ -1,29 +1,16 @@
 import React from "react";
-import { Form, Button, Schema, ButtonGroup} from 'rsuite';
+import { Form, Button, Schema, ButtonGroup } from 'rsuite';
 import { Link } from 'react-router-dom';
 import Encabezado from "../componentes/Encabezado";
+import axios from "axios";
 
-const { StringType, NumberType } = Schema.Types;
+const { StringType } = Schema.Types;
 
 const model = Schema.Model({
-    name: StringType().isRequired('Campo obligatorio.'),
     email: StringType()
         .isEmail('Introduce un correo valido.')
         .isRequired('Campo obligatorio.'),
-    phone: NumberType()
-        .isRequired('Campo obligatorio'),
     password: StringType().isRequired('Campo obligatorio.'),
-    verifyPassword: StringType()
-        .addRule((value, data) => {
-            console.log(data);
-
-            if (value !== data.password) {
-                return false;
-            }
-
-            return true;
-        }, 'Las contraseñas no coinciden')
-        .isRequired('Campo obligatorio.')
 });
 
 const TextField = React.forwardRef((props, ref) => {
@@ -41,11 +28,8 @@ function Login() {
     const formRef = React.useRef();
     const [formError, setFormError] = React.useState({});
     const [formValue, setFormValue] = React.useState({
-        name: '',
         email: '',
-        age: '',
-        password: '',
-        verifyPassword: ''
+        password: ''
     });
 
     const handleSubmit = () => {
@@ -53,6 +37,23 @@ function Login() {
             console.error('Error en el formulario');
             return;
         }
+        
+        // Datos del formulario a enviar a la API
+        const userData = {
+            correo: formValue.email,
+            password: formValue.password,
+        };
+
+        // Realizar la solicitud POST a la API para crear el usuario
+        axios.post("URL_DE_LA_API", userData)
+            .then(response => {
+                console.log("El usuario se creó correctamente");
+                // Realizar acciones adicionales o redireccionar a otra página después de crear el usuario
+            })
+            .catch(error => {
+                console.error("Error al crear el usuario:", error);
+                // Manejar el error de acuerdo a tus necesidades
+            });
     };
 
     return (
@@ -67,16 +68,9 @@ function Login() {
                     formValue={formValue}
                     model={model}
                 >
-                    <TextField name="name" label="Nombre completo" />
+
                     <TextField name="email" label="Email" />
-                    <TextField name="phone" label="Telefono" type="number" min={0} max={9999999999} />
                     <TextField name="password" label="Contraseña" type="password" autoComplete="off" />
-                    <TextField
-                        name="verifyPassword"
-                        label="Introduce tu contraseña nuevamente"
-                        type="password"
-                        autoComplete="off"
-                    />
                     <ButtonGroup>
                         <Button color="green" appearance="primary" onClick={handleSubmit}>
                             Iniciar sesión

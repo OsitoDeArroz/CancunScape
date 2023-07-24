@@ -99,10 +99,10 @@ function TarjetaCarrito({ imgSrc, Titulo, Fecha, Precio, Adultos, Ninos, Reserva
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={actualizarReserva} appearance="primary">
+                    <Button onClick={actualizarReserva} color="green" appearance="primary">
                         Confirmar
                     </Button>
-                    <Button onClick={handleClose} appearance="subtle">
+                    <Button onClick={handleClose} color="red" appearance="primary">
                         Cancelar
                     </Button>
                 </Modal.Footer>
