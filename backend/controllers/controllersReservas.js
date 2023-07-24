@@ -81,14 +81,13 @@ const borrarReserva = (req, res) => {
 
 //actualizar
 const actualizarReserva = (req, res) => {
-    const id_reserva = req.params.id;
-    const { fecha, usuario, id_tour } = req.body;
-    connection.query("CALL sp_actualizarreservas(?,?,?,?)", [id_reserva, fecha, usuario, id_tour], (error, results) => {
+    const {id_reserva, fecha, usuario, id_tour, ninos, adultos } = req.body;
+    connection.query("CALL sp_actualizarreservas(?,?,?,?,?,?)", [id_reserva, fecha, usuario, id_tour, adultos, ninos], (error, results) => {
         if (error) {
             console.error("No se actualizo la reserva ", error);
             res.status(500).json({ error: "No se creo la reserva correctamente" });
         } else {
-            console.log("Se agrego la reserva correctamente");
+            console.log("Se actualizo la reserva correctamente");
             res.json({ Message: "La reserva actualizo correctamente" });
         }
     });

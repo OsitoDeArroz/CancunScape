@@ -8,6 +8,6 @@ router.get('/:id',controllersReservas.obtenerReservas);
 router.get('/',controllersReservas.obtenerReservaPorId);
 router.post('/',controllersReservas.crearReserva);
 router.delete('/:id',controllersReservas.borrarReserva);
-router.patch('/:id',controllersReservas.actualizarReserva);
+router.patch('/',controllersReservas.actualizarReserva);
 
 module.exports = router;

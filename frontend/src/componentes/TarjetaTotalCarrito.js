@@ -20,10 +20,7 @@ function TarjetaTotalCarrito({ Titulo, Precio}) {
         <>
             <h4 className="card-title" style={cardTitleStyle}>Detalle de su compra</h4>
             <hr></hr>
-            <div className="total-container">
-                <p className="card-text" style={cardTextStyle}>{Titulo} </p>
-                <h5 className="card-text" style={cardTextStyle}>MXN {Precio}</h5>
-            </div>
+
 
             <div className="total-container">
                 <h5 className="card-text" style={cardTextStyle}>Total a pagar:</h5>

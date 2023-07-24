@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Button } from "rsuite";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
 import Encabezado from "./Encabezado";
 import TarjetaCarrito from "./TarjetaCarrito";
 import TarjetaTotalCarrito from "./TarjetaTotalCarrito";
-import axios from "axios";
+
 
 function Carrito() {
     const { id } = useParams();
@@ -46,7 +47,8 @@ function Carrito() {
                                 Precio={reserva.precio_unitario}
                                 Adultos={reserva.cant_adultos}
                                 Ninos={reserva.cant_ninos}
-                                tour={reserva.id_reservas}
+                                Reservacion={reserva.id_reservas}
+                                tour={reserva.id_tours_id}
                             />
                         ))}
                     </div>
@@ -54,9 +56,8 @@ function Carrito() {
                         <div align='center'>
                             <div className="card mb-3">
                                 <div className="card-body card-color">
-                                    {/* Mostramos solo una instancia de TarjetaTotalCarrito */}
                                     <TarjetaTotalCarrito
-                                        Titulo={"Detalle de su compra"}
+                                        Titulo={""}
                                         Precio={calcularTotal()}
                                     />
                                 </div>
