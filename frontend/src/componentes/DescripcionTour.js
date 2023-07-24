@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Encabezado from "./Encabezado";
 import { Link, useParams } from "react-router-dom";
-import { Form, ButtonToolbar, Button, DatePicker, InputNumber, InputGroup } from "rsuite";
+import { Form, ButtonToolbar, Button, DatePicker, InputNumber} from "rsuite";
 import { FaCartPlus, FaArrowLeft } from "react-icons/fa";
 import "../assets/css/descripcionTour.css";
 import axios from "axios";
