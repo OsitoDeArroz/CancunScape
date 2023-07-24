@@ -18,7 +18,7 @@ function Paquetes() {
                 console.error('Error al hacer la solicitud:', error);
             });
     }, []);
-
+    
     return (
         <>
             <Encabezado />

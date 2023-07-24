@@ -8,21 +8,22 @@ import TarjetaTotalCarrito from "./TarjetaTotalCarrito";
 import axios from "axios";
 
 function Carrito() {
+    const Usuario  = 1;
     const [reservas, setReservas] = useState([]);
 
     useEffect(() => {
         // Hacer la solicitud GET a la API para obtener los datos de las reservas
-        axios.get('http://localhost:3001/reservas')
+        axios.get(`http://localhost:3001/reservas`, Usuario)
             .then(response => {
                 // En este punto, la respuesta contiene los datos del servidor
-                const reservasData = response.data[0]; // Obtenemos la primera parte de la respuesta que contiene los datos de las reservas
+                const reservasData = response.data[0]; // Aquí eliminamos el acceso a la primera parte de la respuesta
                 setReservas(reservasData); // Actualizamos el estado con los datos recibidos
             })
             .catch(error => {
                 console.error('Error al hacer la solicitud:', error);
             });
-    }, []);
-
+    }, [Usuario]);
+    
     return (
         <>
             <Encabezado />
@@ -32,8 +33,10 @@ function Carrito() {
                         {reservas.map(reserva => (
                             <TarjetaCarrito
                                 key={reserva.id_reservas}
-                                duration={reserva.fecha_reserva}
-                                price={reserva.precio}
+                                Fecha={reserva.fecha_reserva}
+                                Adultos={reserva.cant_adultos}
+                                Ninos={reserva.cant_ninos}
+                                Precio={reserva.precio * reserva.cant_adultos + (reserva.cant_ninos - 100)}
                             />
                         ))}
 

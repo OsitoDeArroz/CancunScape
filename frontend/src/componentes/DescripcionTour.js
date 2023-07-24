@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Encabezado from "./Encabezado";
 import { Link, useParams } from "react-router-dom";
-import { Form, ButtonToolbar, Button, DatePicker, ButtonGroup } from "rsuite";
+import { Form, ButtonToolbar, Button, DatePicker, InputNumber, InputGroup } from "rsuite";
 import { FaCartPlus, FaArrowLeft } from "react-icons/fa";
 import "../assets/css/descripcionTour.css";
 import axios from "axios";
@@ -11,10 +11,10 @@ function DescripcionTour() {
     const { id } = useParams(); // Obtener la ID del tour desde la URL
     const [tour, setTour] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [cantidadAdultos, setCantidadAdultos] = useState(0);
+    const [cantidadAdultos, setCantidadAdultos] = useState(1);
     const [cantidadNinos, setCantidadNinos] = useState(0);
     const [selectedDate, setSelectedDate] = useState(null)
-    
+
     useEffect(() => {
         // Hacer la solicitud GET a la API para obtener los detalles del tour por ID
         axios
@@ -22,7 +22,6 @@ function DescripcionTour() {
             .then((response) => {
                 // En este punto, la respuesta contiene los detalles del tour con la ID especificada
                 const tourData = response.data;
-
                 setTour(tourData); // Actualizamos el estado con los datos recibidos
                 setLoading(false); // La carga de datos ha finalizado, actualizamos el estado de carga
             })
@@ -53,7 +52,10 @@ function DescripcionTour() {
         const reservaData = {
             fecha: selectedDate, // Asigna aquí el valor del estado que contiene la fecha seleccionada
             usuario: 1, // Asigna aquí el ID del usuario que realiza la reserva 
-            tour: tour[0].id_tours // Asigna aquí el ID del tour que se está reservando
+            tour: tour[0].id_tours, // Asigna aquí el ID del tour que se está reservando
+            adultos: cantidadAdultos,
+            ninos: cantidadNinos,
+            precio: tour[0].precio
         };
 
         // Realizar la solicitud POST a la API con los datos de la reserva
@@ -85,17 +87,19 @@ function DescripcionTour() {
                         <p className="desc-text">{tour[0].descripcion_tours}</p>
                         <p className="desc-text">Duracion: {tour[0].duracion} dias</p>
                         <h4>Reserva</h4>
+                        <h5 className="desc-text" align='center'>Total: MXN {calcularTotal()}</h5>
                         <Form>
                             <Form.Group controlId="fecha">
-                                <DatePicker disabledDate={date => isBefore(date, new Date())} disabledHours={hour => hour < 6 || hour > 20} format="yyyy-MM-dd HH:mm" onChange={value => setSelectedDate(value)} />
+                                <Form.ControlLabel>Fecha y hora:</Form.ControlLabel>
+                                <DatePicker style={{ width: 160 }} disabledDate={date => isBefore(date, new Date())} disabledHours={hour => hour < 6 || hour > 20} format="yyyy-MM-dd HH" onChange={value => setSelectedDate(value)} />
                             </Form.Group>
                             <Form.Group controlId="adultos">
                                 <Form.ControlLabel>Adultos:</Form.ControlLabel>
-                                <Form.Control name="adultos" type="number" min={0} max={25} onChange={value => setCantidadAdultos(parseInt(value, 10))} />
+                                <Form.Control style={{ width: 160 }} value={cantidadAdultos} name="adultos" type="number" min={0} max={25} accepter={InputNumber} onChange={value => setCantidadAdultos(parseInt(value, 10))} />
                             </Form.Group>
                             <Form.Group controlId="ninos">
                                 <Form.ControlLabel>Niños:</Form.ControlLabel>
-                                <Form.Control name="ninos" type="number" min={0} max={20} onChange={value => setCantidadNinos(parseInt(value, 10))} />
+                                <Form.Control style={{ width: 160 }} value={cantidadNinos} name="ninos" type="number" min={0} max={20} onChange={value => setCantidadNinos(parseInt(value, 10))} />
                             </Form.Group>
                             <Form.Group>
                                 <ButtonToolbar>
@@ -110,7 +114,6 @@ function DescripcionTour() {
                                         </Button>
                                     </Link>
                                 </ButtonToolbar>
-                                <p className="desc-text" align='center'>Total: MXN {calcularTotal()}</p>
                             </Form.Group>
                         </Form>
 

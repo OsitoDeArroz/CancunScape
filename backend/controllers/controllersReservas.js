@@ -16,7 +16,8 @@ sp_mostrarusuarios*/
 
 //ver
 const obtenerReservas = (req, res) => {
-    connection.query("CALL sp_mostrarreservas()", (error, results) => {
+    const usuario = req.body;
+    connection.query("CALL sp_mostrarreservas(?)", [usuario],(error, results) => {
         if (error) {
             console.error("No se obtuvieron las reservas", error);
             res.status(500).json({ error: "No se obtuvieron las reservas" });
