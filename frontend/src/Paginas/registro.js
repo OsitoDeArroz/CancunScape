@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Button, Schema } from 'rsuite';
+import { Form, Button, Schema, Notification } from 'rsuite';
 import { Link } from 'react-router-dom';
 import Encabezado from "../componentes/Encabezado";
 import axios from "axios";
@@ -39,6 +39,7 @@ const TextField = React.forwardRef((props, ref) => {
 function Login() {
 
     const formRef = React.useRef();
+    const [notificationVisible, setNotificationVisible] = React.useState(false);
     const [formError, setFormError] = React.useState({});
     const [formValue, setFormValue] = React.useState({
         name: '',
@@ -66,7 +67,12 @@ function Login() {
         axios.post("http://localhost:3001/usuarios/registro", userData)
             .catch(error => {
                 console.error("Error al crear el usuario:", error);
+                setNotificationVisible(true);
             });
+    };
+
+    const handleNotificationClose = () => {
+        setNotificationVisible(false);
     };
 
     return (
@@ -81,6 +87,9 @@ function Login() {
                     formValue={formValue}
                     model={model}
                 >
+                    {notificationVisible && (
+                        <Notification closable type="error" header="Correo en uso" onClose={handleNotificationClose}></Notification>
+                    )}
                     <TextField name="name" label="Nombre completo" />
                     <TextField name="email" label="Email" />
                     <TextField name="phone" label="Telefono" type="number" min={0} max={9999999999} />
