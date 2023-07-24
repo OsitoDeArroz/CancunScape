@@ -6,8 +6,8 @@ const router = express.Router()
 
 router.get('/', controllersUsuarios.obtenerUsuarios);
 router.get('/:id', controllersUsuarios.obtenerUsuarioPorId);
+router.post('/registro', controllersUsuarios.crearUsuario);
 router.post('/login', controllersUsuarios.Login);
-router.post('/', controllersUsuarios.crearUsuario);
 router.delete('/:id', controllersUsuarios.borrarUsuario);
 router.patch('/:id', controllersUsuarios.actualizarUsuario);
 

@@ -1,6 +1,6 @@
 import React from "react";
-import { Form, Button, Schema, ButtonGroup } from 'rsuite';
-import { Link } from 'react-router-dom';
+import { Form, Button, Schema, ButtonGroup, Notification } from 'rsuite';
+import { Link, useNavigate } from 'react-router-dom';
 import Encabezado from "../componentes/Encabezado";
 import axios from "axios";
 
@@ -24,43 +24,44 @@ const TextField = React.forwardRef((props, ref) => {
 });
 
 function Login() {
-
     const formRef = React.useRef();
+    const navigate = useNavigate();
     const [formError, setFormError] = React.useState({});
+    const [notificationVisible, setNotificationVisible] = React.useState(false);
     const [formValue, setFormValue] = React.useState({
         email: '',
         password: ''
     });
 
     const handleSubmit = () => {
-        if (!formRef.current.check()) {
-            console.error('Error en el formulario');
-            return;
-        }
 
         // Datos del formulario a enviar a la API
         const userData = {
             correo: formValue.email,
-            password: formValue.password,
+            password: formValue.password
         };
 
         // Realizar la solicitud POST a la API para iniciar sesión
-        axios.post("http://localhost:3001/login", userData)
+
+        axios.post("http://localhost:3001/usuarios/login", userData)
             .then(response => {
                 // La API debería devolver una respuesta con el estado de inicio de sesión
                 if (response.data.success) {
                     console.log("Inicio de sesión exitoso");
-                    // Redireccionar a la página de inicio de sesión exitoso o hacer cualquier otra acción necesaria
+                    navigate("/");
                 } else {
-                    console.log("Inicio de sesión fallido: ", response.data.message);
-                    // Mostrar un mensaje de error o hacer cualquier otra acción necesaria para el inicio de sesión fallido
+                    console.log(response.data.message);
                 }
             })
             .catch(error => {
-                console.error("Error al iniciar sesión: ", error);
-                // Mostrar un mensaje de error o hacer cualquier otra acción necesaria en caso de error
+                console.error("Error al iniciar sesión: ");
+                setNotificationVisible(true);
             });
 
+    };
+
+    const handleNotificationClose = () => {
+        setNotificationVisible(false);
     };
 
     return (
@@ -75,7 +76,9 @@ function Login() {
                     formValue={formValue}
                     model={model}
                 >
-
+                    {notificationVisible && (
+                        <Notification closable type="error" header="Credenciales inválidas" onClose={handleNotificationClose}></Notification>
+                    )}
                     <TextField name="email" label="Email" />
                     <TextField name="password" label="Contraseña" type="password" autoComplete="off" />
                     <ButtonGroup>
@@ -90,6 +93,7 @@ function Login() {
                         <Button color="yellow" appearance="subtle">Crear cuenta</Button>
                     </Link>
                 </Form>
+
             </div>
         </>
     );

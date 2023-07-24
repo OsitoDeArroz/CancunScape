@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Button, Schema, ButtonGroup } from 'rsuite';
+import { Form, Button, Schema } from 'rsuite';
 import { Link } from 'react-router-dom';
 import Encabezado from "../componentes/Encabezado";
 import axios from "axios";
@@ -16,7 +16,6 @@ const model = Schema.Model({
     password: StringType().isRequired('Campo obligatorio.'),
     verifyPassword: StringType()
         .addRule((value, data) => {
-            console.log(data);
 
             if (value !== data.password) {
                 return false;
@@ -64,10 +63,7 @@ function Login() {
         };
 
         // Realizar la solicitud POST a la API para crear el usuario
-        axios.post("/", userData)
-            .then(response => {
-                // Falta agregar una autenticacion
-            })
+        axios.post("http://localhost:3001/usuarios/registro", userData)
             .catch(error => {
                 console.error("Error al crear el usuario:", error);
             });
