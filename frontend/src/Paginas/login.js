@@ -37,23 +37,30 @@ function Login() {
             console.error('Error en el formulario');
             return;
         }
-        
+
         // Datos del formulario a enviar a la API
         const userData = {
             correo: formValue.email,
             password: formValue.password,
         };
 
-        // Realizar la solicitud POST a la API para crear el usuario
-        axios.post("URL_DE_LA_API", userData)
+        // Realizar la solicitud POST a la API para iniciar sesión
+        axios.post("http://localhost:3001/login", userData)
             .then(response => {
-                console.log("El usuario se creó correctamente");
-                // Realizar acciones adicionales o redireccionar a otra página después de crear el usuario
+                // La API debería devolver una respuesta con el estado de inicio de sesión
+                if (response.data.success) {
+                    console.log("Inicio de sesión exitoso");
+                    // Redireccionar a la página de inicio de sesión exitoso o hacer cualquier otra acción necesaria
+                } else {
+                    console.log("Inicio de sesión fallido: ", response.data.message);
+                    // Mostrar un mensaje de error o hacer cualquier otra acción necesaria para el inicio de sesión fallido
+                }
             })
             .catch(error => {
-                console.error("Error al crear el usuario:", error);
-                // Manejar el error de acuerdo a tus necesidades
+                console.error("Error al iniciar sesión: ", error);
+                // Mostrar un mensaje de error o hacer cualquier otra acción necesaria en caso de error
             });
+
     };
 
     return (
