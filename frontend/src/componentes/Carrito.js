@@ -29,6 +29,13 @@ function Carrito() {
             <div className="container">
                 <div className="row">
                     <div className="col-lg-6">
+                        {reservas.map(reserva => (
+                            <TarjetaCarrito
+                                key={reserva.id_reservas}
+                                duration={reserva.fecha_reserva}
+                                price={reserva.precio}
+                            />
+                        ))}
 
                     </div>
                     <div className="col-lg-6">
@@ -36,7 +43,7 @@ function Carrito() {
                             <div className="card mb-3">
                                 <div className="card-body card-color">
                                     <TarjetaTotalCarrito
-                                    
+
                                     />
                                 </div>
                             </div>

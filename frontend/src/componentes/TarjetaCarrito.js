@@ -3,7 +3,7 @@ import { ButtonToolbar, Button } from "rsuite";
 import { Link } from "react-router-dom";
 import { FaRegEdit, FaTrashAlt } from 'react-icons/fa';
 
-function TarjetaCarrito({ imgSrc, Titulo, Fecha, Precio, Adultos, Ninos, onEdit, onRemove }) {
+function TarjetaCarrito({ imgSrc, Titulo, Fecha, Precio, Adultos, Ninos}) {
     const cardTitleStyle = {
         fontFamily: 'Pacifico, cursive',
         fontSize: '24px',

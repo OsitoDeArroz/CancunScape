@@ -47,9 +47,9 @@ const obtenerReservaPorId = (req, res) => {
 
 //insertar
 const crearReserva = (req, res) => {
-    const { nombre, fecha, usuario, tour } = req.body;
+    const { fecha, usuario, tour } = req.body;
 
-    connection.query("CALL sp_insertarreserva(?, ?, ?, ?)", [nombre, fecha, usuario, tour], (error, results) => {
+    connection.query("CALL sp_insertarreserva(?, ?, ?)", [fecha, usuario, tour], (error, results) => {
         if (error) {
             console.error("No se creo la reserva correctamente", error);
             res.status(500).json({ error: "No se creo la reserva correctamente" });

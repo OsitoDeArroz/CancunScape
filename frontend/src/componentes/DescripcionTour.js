@@ -11,7 +11,10 @@ function DescripcionTour() {
     const { id } = useParams(); // Obtener la ID del tour desde la URL
     const [tour, setTour] = useState(null);
     const [loading, setLoading] = useState(true);
-
+    const [cantidadAdultos, setCantidadAdultos] = useState(0);
+    const [cantidadNinos, setCantidadNinos] = useState(0);
+    const [selectedDate, setSelectedDate] = useState(null)
+    
     useEffect(() => {
         // Hacer la solicitud GET a la API para obtener los detalles del tour por ID
         axios
@@ -28,7 +31,7 @@ function DescripcionTour() {
                 setLoading(false); // La carga de datos ha finalizado, actualizamos el estado de carga
             });
     }, [id]);
-    
+
     if (loading) {
         // Muestra un mensaje de carga mientras se obtienen los datos
         return <div>Cargando...</div>;
@@ -39,6 +42,32 @@ function DescripcionTour() {
         return <div>Error al cargar los datos del tour</div>;
     }
 
+    // Función para calcular el precio total
+    const calcularTotal = () => {
+        const precioAdultos = tour[0].precio * cantidadAdultos;
+        const precioNinos = cantidadNinos * (tour[0].precio - 100);
+        return precioAdultos + precioNinos;
+    };
+
+    const reservarTour = () => {
+        const reservaData = {
+            fecha: selectedDate, // Asigna aquí el valor del estado que contiene la fecha seleccionada
+            usuario: 1, // Asigna aquí el ID del usuario que realiza la reserva 
+            tour: tour[0].id_tours // Asigna aquí el ID del tour que se está reservando
+        };
+
+        // Realizar la solicitud POST a la API con los datos de la reserva
+        axios.post("http://localhost:3001/reservas", reservaData)
+            .then(response => {
+                console.log("Reserva realizada correctamente");
+                // Aquí puedes redirigir al usuario a una página de éxito de reserva o mostrar un mensaje de éxito en el mismo componente
+            })
+            .catch(error => {
+                console.error("Error al hacer la reserva:", error);
+                // Aquí puedes mostrar un mensaje de error al usuario o redirigirlo a una página de error de reserva
+            });
+    };
+
     return (
         <>
             <Encabezado />
@@ -48,30 +77,30 @@ function DescripcionTour() {
                     <div className="col-lg-6">
                         <h2>Detalles</h2>
                         <hr />
-                        <img src={tour[0].imagen} className="img-fluid" alt="Imagen" />
+                        <img src={tour[0].imagen} className="img-fluid" alt="Imagen" maxHeight="300" />
+                        <hr />
                     </div>
                     <div className="col-lg-6">
                         <h3 className="desc-title">{tour[0].nombre_tours}</h3>
                         <p className="desc-text">{tour[0].descripcion_tours}</p>
                         <p className="desc-text">Duracion: {tour[0].duracion} dias</p>
-                        <p className="desc-text">Precio: MXN {tour[0].precio}</p>
                         <h4>Reserva</h4>
-                        <Form >
-                            <Form.Group controlId="email">
-                                <DatePicker disabledDate={date => isBefore(date, new Date())} disabledHours={hour => hour < 6 || hour > 20} format="yyyy-MM-dd HH:mm" />
+                        <Form>
+                            <Form.Group controlId="fecha">
+                                <DatePicker disabledDate={date => isBefore(date, new Date())} disabledHours={hour => hour < 6 || hour > 20} format="yyyy-MM-dd HH:mm" onChange={value => setSelectedDate(value)} />
                             </Form.Group>
                             <Form.Group controlId="adultos">
                                 <Form.ControlLabel>Adultos:</Form.ControlLabel>
-                                <Form.Control name="adultos" type="number" min={0} max={25} />
+                                <Form.Control name="adultos" type="number" min={0} max={25} onChange={value => setCantidadAdultos(parseInt(value, 10))} />
                             </Form.Group>
                             <Form.Group controlId="ninos">
                                 <Form.ControlLabel>Niños:</Form.ControlLabel>
-                                <Form.Control name="adultos" type="number" min={0} max={20} />
+                                <Form.Control name="ninos" type="number" min={0} max={20} onChange={value => setCantidadNinos(parseInt(value, 10))} />
                             </Form.Group>
                             <Form.Group>
                                 <ButtonToolbar>
                                     <Link to="/carrito">
-                                        <Button color="green" appearance="primary" startIcon={<FaCartPlus />}>
+                                        <Button color="green" appearance="primary" startIcon={<FaCartPlus />} onClick={reservarTour}>
                                             Reservar
                                         </Button>
                                     </Link>
@@ -81,9 +110,11 @@ function DescripcionTour() {
                                         </Button>
                                     </Link>
                                 </ButtonToolbar>
+                                <p className="desc-text" align='center'>Total: MXN {calcularTotal()}</p>
                             </Form.Group>
                         </Form>
 
+                        <hr />
                     </div>
                 </div>
             </div>
