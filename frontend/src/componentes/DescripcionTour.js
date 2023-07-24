@@ -60,10 +60,10 @@ function DescripcionTour() {
         };
 
         // Realizar la solicitud POST a la API con los datos de la reserva
-        axios.post("http://localhost:3001/reservas", reservaData) 
-        .then(response => {
-            window.location.reload(); // Recargamos la página del carrito después de hacer la reserva
-        })
+        axios.post("http://localhost:3001/reservas", reservaData)
+            .then(response => {
+                window.location.reload(); // Recargamos la página del carrito después de hacer la reserva
+            })
             .catch(error => {
                 console.error("Error al hacer la reserva:", error);
             });
@@ -82,40 +82,43 @@ function DescripcionTour() {
                         <hr />
                     </div>
                     <div className="col-lg-6">
-                        <h3 className="desc-title">{tour[0].nombre_tours}</h3>
-                        <p className="desc-text">{tour[0].descripcion_tours}</p>
-                        <p className="desc-text">Duracion: {tour[0].duracion} dias</p>
-                        <h4>Reserva</h4>
-                        <h5 className="desc-text" align='center'>Total: MXN {calcularTotal()}</h5>
-                        <Form>
-                            <Form.Group controlId="fecha-3">
-                                <Form.ControlLabel>Fecha y hora:</Form.ControlLabel>
-                                <DatePicker style={{ width: 160 }} disabledDate={date => isBefore(date, new Date())} disabledHours={hour => hour < 6 || hour > 20} format="yyyy-MM-dd" onChange={value => setSelectedDate(value)} />
-                            </Form.Group>
-                            <Form.Group controlId="adultos-3">
-                                <Form.ControlLabel>Adultos:</Form.ControlLabel>
-                                <Form.Control style={{ width: 160 }} value={cantidadAdultos} name="adultos" type="number" min={0} max={25} accepter={InputNumber} onChange={value => setCantidadAdultos(parseInt(value, 10))} />
-                            </Form.Group>
-                            <Form.Group controlId="ninos-3">
-                                <Form.ControlLabel>Niños:</Form.ControlLabel>
-                                <Form.Control style={{ width: 160 }} value={cantidadNinos} name="ninos" type="number" min={0} max={20} onChange={value => setCantidadNinos(parseInt(value, 10))} />
-                            </Form.Group>
-                            <Form.Group>
-                                <ButtonToolbar>
-                                    <Link to={`/carrito/${usuario}`}>
-                                        <Button color="green" appearance="primary" startIcon={<FaCartPlus />} onClick={reservarTour} >
-                                            Reservar
-                                        </Button>
-                                    </Link>
-                                    <Link to="/paquetes">
-                                        <Button appearance="primary" startIcon={<FaArrowLeft />}>
-                                            Regresar
-                                        </Button>
-                                    </Link>
-                                </ButtonToolbar>
-                            </Form.Group>
-                        </Form>
-
+                        <div className="card mb-3">
+                            <div className="card-body card-color">
+                                <h3 className="desc-title">{tour[0].nombre_tours}</h3>
+                                <p className="desc-text">{tour[0].descripcion_tours}</p>
+                                <p className="desc-text">Duracion: {tour[0].duracion} dias</p>
+                                <h4>Reserva</h4>
+                                <h5 className="desc-text" align='center'>Total: MXN {calcularTotal()}</h5>
+                                <Form>
+                                    <Form.Group controlId="fecha-3">
+                                        <Form.ControlLabel>Fecha y hora:</Form.ControlLabel>
+                                        <DatePicker style={{ width: 160 }} disabledDate={date => isBefore(date, new Date())} disabledHours={hour => hour < 6 || hour > 20} format="yyyy-MM-dd" onChange={value => setSelectedDate(value)} />
+                                    </Form.Group>
+                                    <Form.Group controlId="adultos-3">
+                                        <Form.ControlLabel>Adultos:</Form.ControlLabel>
+                                        <Form.Control style={{ width: 160 }} value={cantidadAdultos} name="adultos" type="number" min={0} max={25} accepter={InputNumber} onChange={value => setCantidadAdultos(parseInt(value, 10))} />
+                                    </Form.Group>
+                                    <Form.Group controlId="ninos-3">
+                                        <Form.ControlLabel>Niños:</Form.ControlLabel>
+                                        <Form.Control style={{ width: 160 }} value={cantidadNinos} name="ninos" type="number" min={0} max={20} onChange={value => setCantidadNinos(parseInt(value, 10))} />
+                                    </Form.Group>
+                                    <Form.Group>
+                                        <ButtonToolbar>
+                                            <Link to={`/carrito/${usuario}`}>
+                                                <Button color="green" appearance="primary" startIcon={<FaCartPlus />} onClick={reservarTour} >
+                                                    Reservar
+                                                </Button>
+                                            </Link>
+                                            <Link to="/paquetes">
+                                                <Button appearance="primary" startIcon={<FaArrowLeft />}>
+                                                    Regresar
+                                                </Button>
+                                            </Link>
+                                        </ButtonToolbar>
+                                    </Form.Group>
+                                </Form>
+                            </div>
+                        </div>
                         <hr />
                     </div>
                 </div>

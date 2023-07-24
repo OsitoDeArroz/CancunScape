@@ -6,15 +6,11 @@ import isBefore from 'date-fns/isBefore';
 
 function TarjetaCarrito({ imgSrc, Titulo, Fecha, Precio, Adultos, Ninos, Reservacion, tour }) {
     const cardTitleStyle = {
-        fontFamily: 'Pacifico, cursive',
-        fontSize: '24px',
-        marginBottom: '10px',
-    };
+        fontFamily: 'Pacifico, cursive'
+    }
 
     const cardTextStyle = {
         fontFamily: 'Roboto, sans-serif',
-        fontSize: '16px',
-        marginBottom: '20px',
     };
 
     const [open, setOpen] = React.useState(false);
