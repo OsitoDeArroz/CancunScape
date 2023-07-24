@@ -3,7 +3,7 @@ import { Button } from "rsuite";
 import { Link } from "react-router-dom";
 import { FaCreditCard } from 'react-icons/fa';
 
-function TarjetaTotalCarrito({ Titulo, Precio }) {
+function TarjetaTotalCarrito({ Titulo, Precio}) {
     const cardTitleStyle = {
         fontFamily: 'Pacifico, cursive',
         fontSize: '24px',

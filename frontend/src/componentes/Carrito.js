@@ -8,14 +8,12 @@ import TarjetaTotalCarrito from "./TarjetaTotalCarrito";
 import axios from "axios";
 
 function Carrito() {
-    const { id } = useParams(); // Obtener la ID del tour desde la URL
+    const { id } = useParams();
     const [reservas, setReservas] = useState([]);
 
     useEffect(() => {
-        // Hacer la solicitud GET a la API para obtener los datos de las reservas
         axios.get(`http://localhost:3001/reservas/${id}`)
             .then(response => {
-                // En este punto, la respuesta contiene los datos del servidor
                 const reservasData = response.data[0];
                 setReservas(reservasData);
             })
@@ -24,11 +22,13 @@ function Carrito() {
             });
     }, [id]);
 
-    // Función para formatear la fecha en un formato legible
-    const formatFecha = (fechaString) => {
-        const [fecha, hora] = fechaString.split('-');
-        const [anio, mes, dia] = fecha.split('-');
-        return `${dia}/${mes}/${anio} - ${hora} hrs`;
+    // Calculamos el costo total de todas las reservas
+    const calcularTotal = () => {
+        let total = 0;
+        reservas.forEach(reserva => {
+            total += reserva.precio_unitario * reserva.cant_adultos + reserva.cant_ninos * (reserva.precio_unitario - 100);
+        });
+        return total;
     };
 
     return (
@@ -46,21 +46,21 @@ function Carrito() {
                                 Precio={reserva.precio_unitario}
                                 Adultos={reserva.cant_adultos}
                                 Ninos={reserva.cant_ninos}
+                                tour={reserva.id_reservas}
                             />
                         ))}
-
                     </div>
                     <div className="col-lg-6">
                         <div align='center'>
                             <div className="card mb-3">
                                 <div className="card-body card-color">
+                                    {/* Mostramos solo una instancia de TarjetaTotalCarrito */}
                                     <TarjetaTotalCarrito
-                                        Titulo={"a"}
-                                        Precio={200}
+                                        Titulo={"Detalle de su compra"}
+                                        Precio={calcularTotal()}
                                     />
                                 </div>
                             </div>
-
                             <Link to="/">
                                 <Button appearance="primary" startIcon={<FaArrowLeft />}>Regresar</Button>
                             </Link>
@@ -73,3 +73,4 @@ function Carrito() {
 }
 
 export default Carrito;
+

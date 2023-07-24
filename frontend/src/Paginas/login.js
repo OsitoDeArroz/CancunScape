@@ -67,10 +67,10 @@ function Login() {
                     formValue={formValue}
                     model={model}
                 >
-                    <TextField name="name" label="Username" />
+                    <TextField name="name" label="Nombre completo" />
                     <TextField name="email" label="Email" />
-                    <TextField name="phone" label="Phone" type="number" min={0} max={9999999999} />
-                    <TextField name="password" label="Password" type="password" autoComplete="off" />
+                    <TextField name="phone" label="Telefono" type="number" min={0} max={9999999999} />
+                    <TextField name="password" label="Contraseña" type="password" autoComplete="off" />
                     <TextField
                         name="verifyPassword"
                         label="Introduce tu contraseña nuevamente"

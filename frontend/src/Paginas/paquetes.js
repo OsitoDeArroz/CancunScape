@@ -26,7 +26,6 @@ function Paquetes() {
                 <div className="row">
                     {tours.map(tour => (
                         <TarjetaTour
-                            key={tour.id_tours}
                             imgSrc={tour.imagen}
                             title={tour.nombre_tours}
                             description={tour.descripcion_tours}
