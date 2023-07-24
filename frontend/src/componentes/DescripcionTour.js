@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Encabezado from "./Encabezado";
 import { Link, useParams } from "react-router-dom";
-import { Form, ButtonToolbar, Button, DatePicker, InputNumber} from "rsuite";
+import { Form, ButtonToolbar, Button, DatePicker, InputNumber } from "rsuite";
 import { FaCartPlus, FaArrowLeft } from "react-icons/fa";
 import "../assets/css/descripcionTour.css";
 import axios from "axios";
@@ -60,10 +60,10 @@ function DescripcionTour() {
         };
 
         // Realizar la solicitud POST a la API con los datos de la reserva
-        axios.post("http://localhost:3001/reservas", reservaData)
-            .then(response => {
-                console.log("Reserva realizada correctamente");
-            })
+        axios.post("http://localhost:3001/reservas", reservaData) 
+        .then(response => {
+            window.location.reload(); // Recargamos la página del carrito después de hacer la reserva
+        })
             .catch(error => {
                 console.error("Error al hacer la reserva:", error);
             });
@@ -103,7 +103,7 @@ function DescripcionTour() {
                             <Form.Group>
                                 <ButtonToolbar>
                                     <Link to={`/carrito/${usuario}`}>
-                                        <Button color="green" appearance="primary" startIcon={<FaCartPlus />} onClick={reservarTour}>
+                                        <Button color="green" appearance="primary" startIcon={<FaCartPlus />} onClick={reservarTour} >
                                             Reservar
                                         </Button>
                                     </Link>

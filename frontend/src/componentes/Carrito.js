@@ -11,7 +11,7 @@ import TarjetaTotalCarrito from "./TarjetaTotalCarrito";
 function Carrito() {
     const { id } = useParams();
     const [reservas, setReservas] = useState([]);
-
+    
     useEffect(() => {
         axios.get(`http://localhost:3001/reservas/${id}`)
             .then(response => {
@@ -31,6 +31,8 @@ function Carrito() {
         });
         return total;
     };
+
+    const pagarDeshabilitado = reservas.length === 0;
 
     return (
         <>
@@ -59,6 +61,7 @@ function Carrito() {
                                     <TarjetaTotalCarrito
                                         Titulo={""}
                                         Precio={calcularTotal()}
+                                        pagar = {pagarDeshabilitado}
                                     />
                                 </div>
                             </div>

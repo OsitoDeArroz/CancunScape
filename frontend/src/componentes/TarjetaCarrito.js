@@ -34,7 +34,6 @@ function TarjetaCarrito({ imgSrc, Titulo, Fecha, Precio, Adultos, Ninos, Reserva
     const handleEliminar = () => {
         axios.delete(`http://localhost:3001/reservas/${Reservacion}`)
             .then(response => {
-                console.log("Se borró la reserva correctamente");
                 window.location.reload();
             })
             .catch(error => {
