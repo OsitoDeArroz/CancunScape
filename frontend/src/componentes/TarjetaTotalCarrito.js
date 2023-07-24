@@ -5,15 +5,11 @@ import { FaCreditCard } from 'react-icons/fa';
 
 function TarjetaTotalCarrito({ Titulo, Precio, pagar}) {
     const cardTitleStyle = {
-        fontFamily: 'Pacifico, cursive',
-        fontSize: '24px',
-        marginBottom: '5px',
+        fontFamily: 'Pacifico, cursive'
     };
 
     const cardTextStyle = {
-        fontFamily: 'Roboto, sans-serif',
-        fontSize: '16px',
-        marginBottom: '15px',
+        fontFamily: 'Roboto, sans-serif'
     };
     
     return (
