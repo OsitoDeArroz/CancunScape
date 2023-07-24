@@ -24,7 +24,7 @@ function App() {
             <Route path='/descripcion/:id' element={<DescripcionTour />}></Route>
             <Route path='/login' element={<Login />}></Route>
             <Route path='/registro' element={<Registro />}></Route>
-            <Route path='/carrito' element={<Carrito />}></Route>
+            <Route path='/carrito/:id' element={<Carrito />}></Route>
           </Routes>
         </BrowserRouter>
       </div>

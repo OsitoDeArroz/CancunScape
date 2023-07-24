@@ -16,13 +16,13 @@ sp_mostrarusuarios*/
 
 //ver
 const obtenerReservas = (req, res) => {
-    const { usuario }= req.body;
+    const usuario  = req.params.id;
     connection.query("CALL sp_mostrarreservas(?)", [usuario],(error, results) => {
         if (error) {
-            console.error("No se obtuvieron las reservas", error);
+            console.error("No se obtuvieron las reservas ", error);
             res.status(500).json({ error: "No se obtuvieron las reservas" });
         } else {
-            console.log("Se obtuvieron las reservas");
+            console.log("Se obtuvieron las reservas ");
             res.json(results);
         }
     });

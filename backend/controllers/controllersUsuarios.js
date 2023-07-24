@@ -49,9 +49,9 @@ const crearUsuario = (req, res) => {
 
 //borrar
 const borrarUsuario = (req, res) => {
-    const id_usuario = req.params.id;
+    const usuario = req.params.id;
 
-    connection.query("CALL sp_eliminarusuario(?)", [id_usuario], (error, results) => {
+    connection.query("CALL sp_eliminarusuario(?)", [usuario], (error, results) => {
         if (error) {
             console.error("No se borro el usuario correctamente", error);
             res.status(500).json({ error: "No se borro el usuario correctamente" });
@@ -67,10 +67,10 @@ const borrarUsuario = (req, res) => {
 
 //actualizar
 const actualizarUsuario = (req, res) => {
-    const id_usuario = req.params.id;
-    const { nombre, correo, password, fecha, contacto, imagen, precio } = req.body;
+    const usuario = req.params.id;
+    const { nombre, correo, password, contacto} = req.body;
 
-    connection.query("CALL sp_actualizartours(?, ?, ?, ?, ?, ?, ?, ?)", [id_tour, nombre, descripcion, fecha, duracion, lugar, imagen, precio], (error, results) => {
+    connection.query("CALL sp_actualizarusuario(?, ?, ?, ?, ?, ?, ?)", [usuario, nombre, correo, password, contacto], (error, results) => {
         if (error) {
             console.error("No se actualizo el usuario ", error);
             res.status(500).json({ error: "No se actualizo el usuario correctamente" });

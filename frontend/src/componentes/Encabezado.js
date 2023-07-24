@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 
 function Encabezado() {
     const location = useLocation();
+    const usuario = 1;
 
     return (
         <>
@@ -30,6 +31,9 @@ function Encabezado() {
                         </Link>
                     </div>
                 </div>
+                <Link to={`/carrito/${usuario}`} className="navbar-brand">
+                    <i className="bi bi-cart"></i>
+                </Link>
                 <Link to="/login" className="navbar-brand">
                     <i className="bi bi-person fs-4"></i>
                 </Link>

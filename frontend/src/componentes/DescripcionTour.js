@@ -9,6 +9,7 @@ import isBefore from 'date-fns/isBefore';
 
 function DescripcionTour() {
     const { id } = useParams(); // Obtener la ID del tour desde la URL
+    const usuario = 1;
     const [tour, setTour] = useState(null);
     const [loading, setLoading] = useState(true);
     const [cantidadAdultos, setCantidadAdultos] = useState(1);
@@ -103,7 +104,7 @@ function DescripcionTour() {
                             </Form.Group>
                             <Form.Group>
                                 <ButtonToolbar>
-                                    <Link to="/carrito">
+                                    <Link to={`/carrito/${usuario}`}>
                                         <Button color="green" appearance="primary" startIcon={<FaCartPlus />} onClick={reservarTour}>
                                             Reservar
                                         </Button>

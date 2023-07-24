@@ -1,29 +1,36 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "rsuite";
 import { FaArrowLeft } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Encabezado from "./Encabezado";
 import TarjetaCarrito from "./TarjetaCarrito";
 import TarjetaTotalCarrito from "./TarjetaTotalCarrito";
 import axios from "axios";
 
 function Carrito() {
-    const Usuario  = 1;
+    const { id } = useParams(); // Obtener la ID del tour desde la URL
     const [reservas, setReservas] = useState([]);
 
     useEffect(() => {
         // Hacer la solicitud GET a la API para obtener los datos de las reservas
-        axios.get(`http://localhost:3001/reservas`, Usuario)
+        axios.get(`http://localhost:3001/reservas/${id}`)
             .then(response => {
                 // En este punto, la respuesta contiene los datos del servidor
-                const reservasData = response.data[0]; // Aquí eliminamos el acceso a la primera parte de la respuesta
-                setReservas(reservasData); // Actualizamos el estado con los datos recibidos
+                const reservasData = response.data[0];
+                setReservas(reservasData);
             })
             .catch(error => {
                 console.error('Error al hacer la solicitud:', error);
             });
-    }, [Usuario]);
-    
+    }, [id]);
+
+    // Función para formatear la fecha en un formato legible
+    const formatFecha = (fechaString) => {
+        const [fecha, hora] = fechaString.split('-');
+        const [anio, mes, dia] = fecha.split('-');
+        return `${dia}/${mes}/${anio} - ${hora} hrs`;
+    };
+
     return (
         <>
             <Encabezado />
@@ -33,10 +40,12 @@ function Carrito() {
                         {reservas.map(reserva => (
                             <TarjetaCarrito
                                 key={reserva.id_reservas}
-                                Fecha={reserva.fecha_reserva}
+                                imgSrc={reserva.imagen}
+                                Titulo={reserva.nombre_tours}
+                                Fecha={reserva.fecha}
+                                Precio={reserva.precio_unitario}
                                 Adultos={reserva.cant_adultos}
                                 Ninos={reserva.cant_ninos}
-                                Precio={reserva.precio * reserva.cant_adultos + (reserva.cant_ninos - 100)}
                             />
                         ))}
 
@@ -46,7 +55,8 @@ function Carrito() {
                             <div className="card mb-3">
                                 <div className="card-body card-color">
                                     <TarjetaTotalCarrito
-
+                                        Titulo={"a"}
+                                        Precio={200}
                                     />
                                 </div>
                             </div>
