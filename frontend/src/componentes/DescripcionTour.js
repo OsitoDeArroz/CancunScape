@@ -19,6 +19,7 @@ function DescripcionTour() {
             .then((response) => {
                 // En este punto, la respuesta contiene los detalles del tour con la ID especificada
                 const tourData = response.data;
+
                 setTour(tourData); // Actualizamos el estado con los datos recibidos
                 setLoading(false); // La carga de datos ha finalizado, actualizamos el estado de carga
             })
@@ -27,7 +28,7 @@ function DescripcionTour() {
                 setLoading(false); // La carga de datos ha finalizado, actualizamos el estado de carga
             });
     }, [id]);
-
+    
     if (loading) {
         // Muestra un mensaje de carga mientras se obtienen los datos
         return <div>Cargando...</div>;
@@ -47,12 +48,13 @@ function DescripcionTour() {
                     <div className="col-lg-6">
                         <h2>Detalles</h2>
                         <hr />
-                        <img src={tour.imagen} className="img-fluid" alt="Imagen" />
+                        <img src={tour[0].imagen} className="img-fluid" alt="Imagen" />
                     </div>
                     <div className="col-lg-6">
-                        <h3 className="desc-title">{tour.nombre_tours}</h3>
-                        <p className="desc-text">{tour.descripcion_tours}</p>
-                        <p className="desc-text">Duracion: {tour?.duracion} dias</p>
+                        <h3 className="desc-title">{tour[0].nombre_tours}</h3>
+                        <p className="desc-text">{tour[0].descripcion_tours}</p>
+                        <p className="desc-text">Duracion: {tour[0].duracion} dias</p>
+                        <p className="desc-text">Precio: MXN {tour[0].precio}</p>
                         <h4>Reserva</h4>
                         <Form >
                             <Form.Group controlId="email">
