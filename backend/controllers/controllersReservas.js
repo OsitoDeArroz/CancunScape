@@ -33,13 +33,13 @@ const obtenerReservaPorId = (req, res) => {
 
     connection.query("SELECT * FROM reservas WHERE id_reservas=(?)", [id], (error, results) => {
         if (error) {
-            console.error("No se obtuvieron las categorias", error);
-            res.status(500).json({ error: "No se obtuvieron las categorias" });
+            console.error("No se obtuvieron las reservas", error);
+            res.status(500).json({ error: "No se obtuvieron las reservas" });
         } else if (results.length === 0) {
-            res.status(500).json({ error: "No se obtuvieron las categorias" });
+            res.status(500).json({ error: "No se obtuvieron las reservas" });
         }
         else {
-            console.log("Se obtuvo la categoria correctamente");
+            console.log("Se obtuvo la reserva correctamente");
             res.json(results[0]);
         }
     });
@@ -62,7 +62,7 @@ const crearReserva = (req, res) => {
 
 //borrar
 const borrarReserva = (req, res) => {
-    const { id_reserva } = req.params.id;
+    const id_reserva = req.params.id;
 
     connection.query("CALL sp_eliminarreservas(?)", [id_reserva], (error, results) => {
         if (error) {
@@ -73,7 +73,7 @@ const borrarReserva = (req, res) => {
         }
         else {
             console.log("Se borro la reserva correctamente");
-            res.json({ Message: "Se borro correctamente la reserva" });
+            res.json({ Message: "Se borro correctamente la reserva " });
         }
     });
 }
