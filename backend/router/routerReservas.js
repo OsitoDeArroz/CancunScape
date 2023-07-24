@@ -7,7 +7,7 @@ const router = express.Router()
 router.get('/',controllersReservas.obtenerReservas);
 router.get('/:id',controllersReservas.obtenerReservaPorId);
 router.post('/',controllersReservas.crearReserva);
-router.post('/:id',controllersReservas.borrarReserva);
-router.post('/:id',controllersReservas.actualizarReserva);
+router.delete('/:id',controllersReservas.borrarReserva);
+router.patch('/:id',controllersReservas.actualizarReserva);
 
 module.exports = router;

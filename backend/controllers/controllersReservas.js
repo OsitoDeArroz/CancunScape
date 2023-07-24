@@ -31,7 +31,7 @@ const obtenerReservas = (req, res) => {
 const obtenerReservaPorId = (req, res) => {
     const id = req.params.id;
 
-    connection.query("SELECT * FROM categorias WHERE id_categoria=(?)", [id], (error, results) => {
+    connection.query("SELECT * FROM reservas WHERE id_reservas=(?)", [id], (error, results) => {
         if (error) {
             console.error("No se obtuvieron las categorias", error);
             res.status(500).json({ error: "No se obtuvieron las categorias" });
@@ -47,9 +47,9 @@ const obtenerReservaPorId = (req, res) => {
 
 //insertar
 const crearReserva = (req, res) => {
-    const { fecha, usuario, tour } = req.body;
+    const { fecha, usuario, tour, adultos, ninos, precio } = req.body;
 
-    connection.query("CALL sp_insertarreserva(?, ?, ?)", [fecha, usuario, tour], (error, results) => {
+    connection.query("CALL sp_insertarreserva(?, ?, ?, ?, ?, ?)", [fecha, usuario, tour, adultos, ninos, precio], (error, results) => {
         if (error) {
             console.error("No se creo la reserva correctamente", error);
             res.status(500).json({ error: "No se creo la reserva correctamente" });
