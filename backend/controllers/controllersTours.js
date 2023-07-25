@@ -35,7 +35,7 @@ const obtenerTourPorId = (req, res) => {
 const crearTour = (req, res) => {
     const {nombre, descripcion, fecha, duracion, lugar, imagen, precio} = req.body;
 
-    connection.query("CALL sp_insertartours(?, ?, ?, ? ,?, ?, ?)", [nombre, descripcion, fecha, duracion, lugar, imagen, precio], (error, results) => {
+    connection.query("CALL sp_insertartour(?, ?, ?, ? ,?, ?, ?)", [nombre, descripcion, fecha, duracion, lugar, imagen, precio], (error, results) => {
         if(error){
             console.error("No se creo el tour correctamente",error);
             res.status(500).json({error:"No se creo el tour correctamente"});

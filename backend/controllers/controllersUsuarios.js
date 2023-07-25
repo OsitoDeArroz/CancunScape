@@ -95,8 +95,7 @@ const borrarUsuario = (req, res) => {
 
 //actualizar
 const actualizarUsuario = (req, res) => {
-    const usuario = req.params.id;
-    const { nombre, correo, password, contacto } = req.body;
+    const { usuario, nombre, correo, password, contacto } = req.body;
 
     connection.query("CALL sp_actualizarusuario(?, ?, ?, ?, ?, ?, ?)", [usuario, nombre, correo, password, contacto], (error, results) => {
         if (error) {

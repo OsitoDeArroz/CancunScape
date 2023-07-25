@@ -82,9 +82,9 @@ function Login() {
                     <TextField name="email" label="Email" />
                     <TextField name="password" label="Contraseña" type="password" autoComplete="off" />
                     <ButtonGroup>
-                        <Button color="green" appearance="primary" onClick={handleSubmit}>
-                            Iniciar sesión
-                        </Button>
+                        <Link to="/">
+                            <Button color="green" appearance="primary">Iniciar sesion</Button>
+                        </Link>
                         <Link to="/">
                             <Button color="red" appearance="subtle">Cancelar</Button>
                         </Link>

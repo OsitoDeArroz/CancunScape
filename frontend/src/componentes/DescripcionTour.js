@@ -92,7 +92,7 @@ function DescripcionTour() {
                                 <Form>
                                     <Form.Group controlId="fecha-3">
                                         <Form.ControlLabel>Fecha y hora:</Form.ControlLabel>
-                                        <DatePicker style={{ width: 160 }} disabledDate={date => isBefore(date, new Date())} disabledHours={hour => hour < 6 || hour > 20} format="yyyy-MM-dd" onChange={value => setSelectedDate(value)} />
+                                        <DatePicker style={{ width: 160 }} disabledDate={date => isBefore(date, new Date())} disabledHours={hour => hour < 6 || hour > 20} format="yyyy-MM-dd" onChange={value => setSelectedDate(value)} required />
                                     </Form.Group>
                                     <Form.Group controlId="adultos-3">
                                         <Form.ControlLabel>Adultos:</Form.ControlLabel>

@@ -17,9 +17,9 @@ function Footer() {
             <div className="footer-social">
                 <h5>Síguenos en redes sociales</h5>
                 <div className="social-icons">
-                    <a href="a"><i className="bi bi-facebook"></i></a>
-                    <a href="a"><i className="bi bi-twitter"></i></a>
-                    <a href="a"><i className="bi bi-instagram"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=100087461831073&mibextid=ZbWKwL"><i className="bi bi-facebook"></i></a>
+                    <a href="https://twitter.com/M_G_Abiud?t=yfRvgWSJYWcyzXZa6pv-Jg&s=09"><i className="bi bi-twitter"></i></a>
+                    <a href="https://instagram.com/luis.garcia4212?utm_source=qr&igshid=MzNlNGNkZWQ4Mg%3D%3D"><i className="bi bi-instagram"></i></a>
                 </div>
             </div>
         </footer>

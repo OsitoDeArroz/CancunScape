@@ -4,20 +4,39 @@ import { FaRegEdit, FaTrashAlt } from 'react-icons/fa';
 import axios from "axios";
 import isBefore from 'date-fns/isBefore';
 
-function TarjetaCarrito({ imgSrc, Titulo, Fecha, Precio, Adultos, Ninos, Reservacion, tour }) {
+function TarjetaAdmin({ id_tours, nombre_tours, descripcion_tours, fecha, duracion, lugar, imagen, precio }) {
     const cardTitleStyle = {
-        fontFamily: 'Pacifico, cursive'
+        fontFamily: 'Pacifico, cursive',
+        marginBottom: '10px',
+        minHeight: '50px'
+
     }
 
     const cardTextStyle = {
         fontFamily: 'Roboto, sans-serif',
+        fontSize: '16px',
+        maxHeight: '80px'
+    };
+
+    const recortarDescripcion = (texto, limitePalabras) => {
+        const palabras = texto.split(' ');
+        if (palabras.length <= limitePalabras) {
+            return texto;
+        } else {
+            return palabras.slice(0, limitePalabras).join(' ') + '...';
+        }
     };
 
     const [open, setOpen] = React.useState(false);
     const [formValue, setFormValue] = React.useState({
-        fecha: null,
-        adultos: 1,
-        ninos: 0
+        id_tours: id_tours,
+        nombre_tours: nombre_tours,
+        descripcion_tours: descripcion_tours,
+        fecha: fecha,
+        duracion: duracion,
+        lugar: lugar,
+        imagen: imagen,
+        precio: precio
     });
 
     const handleClose = () => {
@@ -28,7 +47,7 @@ function TarjetaCarrito({ imgSrc, Titulo, Fecha, Precio, Adultos, Ninos, Reserva
     };
 
     const handleEliminar = () => {
-        axios.delete(`http://localhost:3001/reservas/${Reservacion}`)
+        axios.delete(`http://localhost:3001/tours/${id_tours}`)
             .then(response => {
                 window.location.reload();
             })
@@ -37,23 +56,24 @@ function TarjetaCarrito({ imgSrc, Titulo, Fecha, Precio, Adultos, Ninos, Reserva
             });
     };
 
-    const actualizarReserva = () => {
-        const { fecha, adultos, ninos } = formValue; // Obtenemos los valores ingresados en el modal
+    const actualizarTour = () => {
+        const { id_tours, nombre_tours, descripcion_tours, fecha, duracion, lugar, imagen, precio } = formValue; // Obtenemos los valores ingresados en el modal
         // Realizar la solicitud PATCH a la API con los datos actualizados
-
-        axios.patch(`http://localhost:3001/reservas`, {
-            id_reserva: Reservacion,
+        console.log(formValue)
+        axios.patch(`http://localhost:3001/tours/${id_tours}`, {
+            nombre: nombre_tours,
+            descripcion: descripcion_tours,
             fecha: fecha,
-            usuario: 1, // Coloca el ID del usuario que realiza la reserva
-            id_tour: tour,
-            adultos: adultos,
-            ninos: ninos
+            duracion: duracion,
+            lugar: lugar,
+            imagen: imagen,
+            precio: precio
         })
             .then(response => {
                 window.location.reload();
             })
             .catch(error => {
-                console.error("Error al actualizar la reserva: ", error);
+                console.error("Error al actualizar el tour: ", error);
             });
     };
 
@@ -61,7 +81,7 @@ function TarjetaCarrito({ imgSrc, Titulo, Fecha, Precio, Adultos, Ninos, Reserva
         <>
             <Modal open={open} onClose={handleClose}>
                 <Modal.Header>
-                    <Modal.Title>Editar Reserva</Modal.Title>
+                    <Modal.Title>Editar Tour</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form fluid onChange={setFormValue} formValue={formValue}>
@@ -77,29 +97,59 @@ function TarjetaCarrito({ imgSrc, Titulo, Fecha, Precio, Adultos, Ninos, Reserva
                             />
                         </Form.Group>
                         <Form.Group>
-                            <Form.ControlLabel>Adultos:</Form.ControlLabel>
+                            <Form.ControlLabel>Nombre:</Form.ControlLabel>
                             <Form.Control
                                 style={{ width: 160 }}
-                                name="adultos" // Asignamos el nombre del campo en el estado formValue
-                                min={1} 
+                                name="nombre_tours" // Asignamos el nombre del campo en el estado formValue
+                                min={1}
                                 max={25}
-                                onChange={(value) => setFormValue({ ...formValue, adultos: value })} // Actualizamos el valor del campo en el estado formValue
+                                onChange={(value) => setFormValue({ ...formValue, nombre_tours: value })} // Actualizamos el valor del campo en el estado formValue
                             />
                         </Form.Group>
                         <Form.Group>
-                            <Form.ControlLabel>Niños:</Form.ControlLabel>
+                            <Form.ControlLabel>Descripcion:</Form.ControlLabel>
+                            <Form.Control
+                                name="descripcion_tours" // Asignamos el nombre del campo en el estado formValue
+                                onChange={(value) => setFormValue({ ...formValue, descripcion_tours: value })} // Actualizamos el valor del campo en el estado formValue
+                            />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.ControlLabel>Lugar:</Form.ControlLabel>
                             <Form.Control
                                 style={{ width: 160 }}
-                                name="ninos" // Asignamos el nombre del campo en el estado formValue
-                                min={0} 
-                                max={25}
-                                onChange={(value) => setFormValue({ ...formValue, ninos: value })} // Actualizamos el valor del campo en el estado formValue
+                                name="lugar"
+                                onChange={(value) => setFormValue({ ...formValue, lugar: value })} // Actualizamos el valor del campo en el estado formValue
+                            />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.ControlLabel>Duracion:</Form.ControlLabel>
+                            <Form.Control
+                                style={{ width: 160 }}
+                                name="duracion" // Asignamos el nombre del campo en el estado formValue
+                                min={1}
+                                onChange={(value) => setFormValue({ ...formValue, duracion: value })} // Actualizamos el valor del campo en el estado formValue
+                            />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.ControlLabel>imagen:</Form.ControlLabel>
+                            <Form.Control
+                                style={{ width: 160 }}
+                                name="imagen" // Asignamos el nombre del campo en el estado formValue
+                                onChange={(value) => setFormValue({ ...formValue, imagen: value })} // Actualizamos el valor del campo en el estado formValue
+                            />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.ControlLabel>Precio:</Form.ControlLabel>
+                            <Form.Control
+                                style={{ width: 160 }}
+                                name="precio" // Asignamos el nombre del campo en el estado formValue
+                                onChange={(value) => setFormValue({ ...formValue, precio: value })} // Actualizamos el valor del campo en el estado formValue
                             />
                         </Form.Group>
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={actualizarReserva} appearance="primary">
+                    <Button onClick={actualizarTour} appearance="primary">
                         Confirmar
                     </Button>
                     <Button onClick={handleClose} appearance="subtle">
@@ -108,28 +158,29 @@ function TarjetaCarrito({ imgSrc, Titulo, Fecha, Precio, Adultos, Ninos, Reserva
                 </Modal.Footer>
             </Modal>
 
-            <div className="card mb-3">
-                <img src={imgSrc} className="card-img-top" alt={Titulo} />
-                <div className="card-body card-color">
-                    <h4 className="card-title" style={cardTitleStyle}>{Titulo}</h4>
-                    <p className="card-text" style={cardTextStyle}>Fecha: {Fecha}</p>
-                    <p className="card-text" style={cardTextStyle}>Adultos: {Adultos}</p>
-                    <p className="card-text" style={cardTextStyle}>Niños: {Ninos}</p>
-                    <h5 className="card-text" style={cardTextStyle}>Precio unitario: MXN {Precio}</h5>
-                    <ButtonToolbar >
-                        <Button appearance="primary" startIcon={<FaRegEdit />} onClick={handleOpen}>
-                            Editar
-                        </Button>
-                        <Button color="red" appearance="primary" startIcon={<FaTrashAlt />} onClick={handleEliminar}>
-                            Eliminar
-                        </Button>
-                    </ButtonToolbar>
+            <div className="col-lg-4">
+                <div className="card mb-3">
+                    <img src={imagen} className="card-img-top" alt={nombre_tours} />
+                    <div className="card-body card-color">
+                        <h4 className="card-title" style={cardTitleStyle}>{nombre_tours}</h4>
+                        <p className="card-text" style={cardTextStyle}>Fecha: {fecha}</p>
+                        <p className="card-text" style={cardTextStyle}>Lugar: {lugar}</p>
+                        <p className="card-text" style={cardTextStyle}>Descripcion: {recortarDescripcion(descripcion_tours, 25)} </p>
+                        <p className="card-text" style={cardTextStyle}>Duracion: {duracion} horas</p>
+                        <h5 className="card-text" style={cardTextStyle}>Precio unitario: MXN {precio}</h5>
+                        <ButtonToolbar >
+                            <Button appearance="primary" startIcon={<FaRegEdit />} onClick={handleOpen}>
+                                Editar
+                            </Button>
+                            <Button color="red" appearance="primary" startIcon={<FaTrashAlt />} onClick={handleEliminar}>
+                                Eliminar
+                            </Button>
+                        </ButtonToolbar>
+                    </div>
                 </div>
             </div>
-
-
         </>
     );
 };
 
-export default TarjetaCarrito;
+export default TarjetaAdmin;

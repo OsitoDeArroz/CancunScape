@@ -1,9 +1,8 @@
 import React from "react";
 import { Button } from "rsuite";
-import { Link } from "react-router-dom";
 import { FaCreditCard } from 'react-icons/fa';
 
-function TarjetaTotalCarrito({ Titulo, Precio, pagar}) {
+function TarjetaTotalCarrito({ Titulo, Precio, pagar }) {
     const cardTitleStyle = {
         fontFamily: 'Pacifico, cursive'
     };
@@ -11,7 +10,7 @@ function TarjetaTotalCarrito({ Titulo, Precio, pagar}) {
     const cardTextStyle = {
         fontFamily: 'Roboto, sans-serif'
     };
-    
+
     return (
         <>
             <h4 className="card-title" style={cardTitleStyle}>Detalle de su compra</h4>
@@ -23,9 +22,9 @@ function TarjetaTotalCarrito({ Titulo, Precio, pagar}) {
                 <h5 className="card-text" style={cardTextStyle}>MXN {Precio}</h5>
             </div>
             <div className="mt-auto" align="center">
-                <Link to="/pago">
-                    <Button color="green" appearance="primary" startIcon={<FaCreditCard/>} block disabled={pagar}> Pagar</Button>
-                </Link>
+
+                <Button color="green" appearance="primary" startIcon={<FaCreditCard />} block disabled={pagar}> Pagar</Button>
+
             </div>
         </>
     );
