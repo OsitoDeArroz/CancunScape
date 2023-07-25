@@ -3,14 +3,19 @@ import React from "react";
 function Footer() {
     return (
         <footer className="footer-container">
+
             <div className="footer-content">
-                <h4>Contacto</h4>
+            <h3>Cancun Scape</h3>
+                <h5>Contacto</h5>
                 <p>Dirección: Calle Principal, Cancún</p>
                 <p>Teléfono: 123-456-7890</p>
                 <p>Email: cancunscape@ut.com</p>
             </div>
+<div>
+    
+</div>
             <div className="footer-social">
-                <h4>Síguenos en redes sociales</h4>
+                <h5>Síguenos en redes sociales</h5>
                 <div className="social-icons">
                     <a href="a"><i className="bi bi-facebook"></i></a>
                     <a href="a"><i className="bi bi-twitter"></i></a>
