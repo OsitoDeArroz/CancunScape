@@ -9,6 +9,7 @@ import Footer from './componentes/Footer';
 import Registro from './Paginas/registro';
 import Carrito from './componentes/Carrito';
 import DescripcionTour from './componentes/DescripcionTour';
+import Administrador from './Paginas/administrador';  
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path='/login' element={<Login />}></Route>
             <Route path='/registro' element={<Registro />}></Route>
             <Route path='/carrito/:id' element={<Carrito />}></Route>
+            <Route path='/administrador' element={<Administrador />}></Route>
           </Routes>
         </BrowserRouter>
       </div>
