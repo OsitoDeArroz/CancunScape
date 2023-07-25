@@ -1,29 +1,16 @@
 import React from "react";
-import { Form, Button, Schema, ButtonGroup} from 'rsuite';
-import { Link } from 'react-router-dom';
+import { Form, Button, Schema, ButtonGroup, Notification } from 'rsuite';
+import { Link, useNavigate } from 'react-router-dom';
 import Encabezado from "../componentes/Encabezado";
+import axios from "axios";
 
-const { StringType, NumberType } = Schema.Types;
+const { StringType } = Schema.Types;
 
 const model = Schema.Model({
-    name: StringType().isRequired('Campo obligatorio.'),
     email: StringType()
         .isEmail('Introduce un correo valido.')
         .isRequired('Campo obligatorio.'),
-    phone: NumberType()
-        .isRequired('Campo obligatorio'),
     password: StringType().isRequired('Campo obligatorio.'),
-    verifyPassword: StringType()
-        .addRule((value, data) => {
-            console.log(data);
-
-            if (value !== data.password) {
-                return false;
-            }
-
-            return true;
-        }, 'Las contraseñas no coinciden')
-        .isRequired('Campo obligatorio.')
 });
 
 const TextField = React.forwardRef((props, ref) => {
@@ -37,22 +24,44 @@ const TextField = React.forwardRef((props, ref) => {
 });
 
 function Login() {
-
     const formRef = React.useRef();
+    const navigate = useNavigate();
     const [formError, setFormError] = React.useState({});
+    const [notificationVisible, setNotificationVisible] = React.useState(false);
     const [formValue, setFormValue] = React.useState({
-        name: '',
         email: '',
-        age: '',
-        password: '',
-        verifyPassword: ''
+        password: ''
     });
 
     const handleSubmit = () => {
-        if (!formRef.current.check()) {
-            console.error('Error en el formulario');
-            return;
-        }
+
+        // Datos del formulario a enviar a la API
+        const userData = {
+            correo: formValue.email,
+            password: formValue.password
+        };
+
+        // Realizar la solicitud POST a la API para iniciar sesión
+
+        axios.post("http://localhost:3001/usuarios/login", userData)
+            .then(response => {
+                // La API debería devolver una respuesta con el estado de inicio de sesión
+                if (response.data.success) {
+                    console.log("Inicio de sesión exitoso");
+                    navigate("/");
+                } else {
+                    console.log(response.data.message);
+                }
+            })
+            .catch(error => {
+                console.error("Error al iniciar sesión: ");
+                setNotificationVisible(true);
+            });
+
+    };
+
+    const handleNotificationClose = () => {
+        setNotificationVisible(false);
     };
 
     return (
@@ -67,16 +76,11 @@ function Login() {
                     formValue={formValue}
                     model={model}
                 >
-                    <TextField name="name" label="Nombre completo" />
+                    {notificationVisible && (
+                        <Notification closable type="error" header="Credenciales inválidas" onClose={handleNotificationClose}></Notification>
+                    )}
                     <TextField name="email" label="Email" />
-                    <TextField name="phone" label="Telefono" type="number" min={0} max={9999999999} />
                     <TextField name="password" label="Contraseña" type="password" autoComplete="off" />
-                    <TextField
-                        name="verifyPassword"
-                        label="Introduce tu contraseña nuevamente"
-                        type="password"
-                        autoComplete="off"
-                    />
                     <ButtonGroup>
                         <Button color="green" appearance="primary" onClick={handleSubmit}>
                             Iniciar sesión
@@ -89,6 +93,7 @@ function Login() {
                         <Button color="yellow" appearance="subtle">Crear cuenta</Button>
                     </Link>
                 </Form>
+
             </div>
         </>
     );
