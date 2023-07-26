@@ -1,5 +1,6 @@
-toursCREATE DATABASE CancunScape CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE CancunScape CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE CancunScape;
+
 CREATE TABLE rol (
   id_rol INT(1) NOT NULL PRIMARY KEY, 
   nombre_rol VARCHAR(50) NOT NULL
@@ -275,3 +276,10 @@ BEGIN
 	SELECT * FROM usuarios WHERE id_usuario = p_id_usuario;
  END$$
 DELIMITER ;
+
+ DELIMITER //
+ CREATE PROCEDURE sp_insertartour( IN nombre VARCHAR(100), IN descripcion VARCHAR(500), IN p_fecha DATETIME, IN p_duracion INT, IN p_lugar VARCHAR(300), IN p_imagen TEXT, IN p_precio INT)
+ BEGIN
+	INSERT INTO tours ( nombre_tours, descripcion_tours, fecha_y_hora, duracion, lugar, imagen,  precio) VALUES (nombre, descripcion, p_fecha, p_duracion, p_lugar, p_imagen, p_precio);
+ END//
+ DELIMITER ;

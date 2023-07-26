@@ -8,8 +8,9 @@ import axios from "axios";
 import isBefore from 'date-fns/isBefore';
 
 function DescripcionTour() {
+
     const { id } = useParams(); // Obtener la ID del tour desde la URL
-    const usuario = 1;
+    const usuario = 2;
     const [tour, setTour] = useState(null);
     const [loading, setLoading] = useState(true);
     const [cantidadAdultos, setCantidadAdultos] = useState(1);
@@ -52,13 +53,13 @@ function DescripcionTour() {
     const reservarTour = () => {
         const reservaData = {
             fecha: selectedDate, // fecha seleccionada
-            usuario: 1, // usuario que realiza la reserva 
+            usuario: usuario, // usuario que realiza la reserva 
             tour: tour[0].id_tours, // tour que se está reservando
             adultos: cantidadAdultos,
             ninos: cantidadNinos,
             precio: tour[0].precio
         };
-
+        console.log(reservaData);
         // Realizar la solicitud POST a la API con los datos de la reserva
         axios.post("http://localhost:3001/reservas", reservaData)
             .then(response => {
@@ -92,7 +93,7 @@ function DescripcionTour() {
                                 <Form>
                                     <Form.Group controlId="fecha-3">
                                         <Form.ControlLabel>Fecha y hora:</Form.ControlLabel>
-                                        <DatePicker style={{ width: 160 }} disabledDate={date => isBefore(date, new Date())} disabledHours={hour => hour < 6 || hour > 20} format="yyyy-MM-dd" onChange={value => setSelectedDate(value)} />
+                                        <DatePicker style={{ width: 160 }} shouldDisableDate={date => isBefore(date, new Date())} shouldDisableHour={hour => hour < 6 || hour > 20} format="yyyy-MM-dd" onChange={value => setSelectedDate(value)} required />
                                     </Form.Group>
                                     <Form.Group controlId="adultos-3">
                                         <Form.ControlLabel>Adultos:</Form.ControlLabel>

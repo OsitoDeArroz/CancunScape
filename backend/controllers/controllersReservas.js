@@ -14,6 +14,18 @@ sp_actualizarreservas
 sp_mostrarusuarios*/
 
 
+const obtenerTodasReservas = (req, res) => {
+    connection.query("CALL sp_mostrartodasreservas()",(error, results) => {
+        if (error) {
+            console.error("No se obtuvieron las reservas ", error);
+            res.status(500).json({ error: "No se obtuvieron las reservas" });
+        } else {
+            console.log("Se obtuvieron todas las reservas ");
+            res.json(results[0]);
+        }
+    });
+};
+
 //ver
 const obtenerReservas = (req, res) => {
     const usuario  = req.params.id;
@@ -95,8 +107,9 @@ const actualizarReserva = (req, res) => {
 
 module.exports = {
     obtenerReservas,
+    obtenerTodasReservas,
     obtenerReservaPorId,
     crearReserva,
     borrarReserva,
-    actualizarReserva,
+    actualizarReserva
 }

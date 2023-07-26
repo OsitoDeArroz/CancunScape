@@ -36,7 +36,7 @@ const TextField = React.forwardRef((props, ref) => {
     );
 });
 
-function Login() {
+function Registro() {
 
     const formRef = React.useRef();
     const [notificationVisible, setNotificationVisible] = React.useState(false);
@@ -44,7 +44,7 @@ function Login() {
     const [formValue, setFormValue] = React.useState({
         name: '',
         email: '',
-        age: '',
+        phone: '',
         password: '',
         verifyPassword: ''
     });
@@ -112,5 +112,5 @@ function Login() {
     );
 }
 
-export default Login;
+export default Registro;
 

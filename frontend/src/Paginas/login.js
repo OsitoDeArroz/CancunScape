@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Button, Schema, ButtonGroup, Notification } from 'rsuite';
 import { Link, useNavigate } from 'react-router-dom';
 import Encabezado from "../componentes/Encabezado";
+
 import axios from "axios";
 
 const { StringType } = Schema.Types;
@@ -45,10 +46,15 @@ function Login() {
 
         axios.post("http://localhost:3001/usuarios/login", userData)
             .then(response => {
-                // La API debería devolver una respuesta con el estado de inicio de sesión
                 if (response.data.success) {
-                    console.log("Inicio de sesión exitoso");
-                    navigate("/");
+                    // Redirección en función del rol del usuario
+                    if (response.data.usuario.id_rol_id === 1) {
+                        // Usuario es administrador, redirigir a la parte de administrador
+                        navigate("/toursadmin");
+                    } else if (response.data.usuario.id_rol_id === 2) {
+                        // Usuario es cliente, redirigir al inicio
+                        navigate("/");
+                    }
                 } else {
                     console.log(response.data.message);
                 }
@@ -57,8 +63,8 @@ function Login() {
                 console.error("Error al iniciar sesión: ");
                 setNotificationVisible(true);
             });
-
     };
+
 
     const handleNotificationClose = () => {
         setNotificationVisible(false);
@@ -82,9 +88,7 @@ function Login() {
                     <TextField name="email" label="Email" />
                     <TextField name="password" label="Contraseña" type="password" autoComplete="off" />
                     <ButtonGroup>
-                        <Button color="green" appearance="primary" onClick={handleSubmit}>
-                            Iniciar sesión
-                        </Button>
+                        <Button color="green" appearance="primary" onClick={handleSubmit}>Iniciar sesion</Button>
                         <Link to="/">
                             <Button color="red" appearance="subtle">Cancelar</Button>
                         </Link>

@@ -95,8 +95,7 @@ const borrarUsuario = (req, res) => {
 
 //actualizar
 const actualizarUsuario = (req, res) => {
-    const usuario = req.params.id;
-    const { nombre, correo, password, contacto } = req.body;
+    const { usuario, nombre, correo, password, contacto } = req.body;
 
     connection.query("CALL sp_actualizarusuario(?, ?, ?, ?, ?, ?, ?)", [usuario, nombre, correo, password, contacto], (error, results) => {
         if (error) {
@@ -119,20 +118,57 @@ const Login = (req, res) => {
             res.status(500).json({ error: "Error al buscar el usuario en la base de datos" });
         } else {
             if (results.length === 0) {
-                res.status(401).json({ error: "Credenciales incorrectas vacio" });
+                res.status(401).json({ success: false, error: "Credenciales incorrectas vacio" });
             } else {
                 const usuario = results[0];
                 bcrypt.compare(password, usuario.password_usuario, (err, result) => {
                     if (err || !result) {
-                        res.status(401).json({ error: "Credenciales incorrectas" });
+                        res.status(401).json({ success: false, error: "Credenciales incorrectas" });
                     } else {
-                        res.json({ Message: "Inicio de sesión exitoso" });
+                        res.json({ success: true, message: "Inicio de sesión exitoso", usuario });
                     }
                 });
             }
         }
     });
 };
+
+
+const crearUsuarioAdmin = (req, res) => {
+    const { nombre, correo, password, contacto, rol } = req.body;
+
+    // Primero, verificamos si ya existe un usuario con el mismo correo
+    connection.query("SELECT * FROM usuario WHERE correo_electronico = ?", [correo], (error, results) => {
+        if (error) {
+            console.error("Error al buscar el usuario en la base de datos", error);
+            res.status(500).json({ error: "Error al buscar el usuario en la base de datos" });
+        } else {
+            if (results.length > 0) {
+                // Si ya existe un usuario con el mismo correo, devolvemos un mensaje de error
+                res.status(400).json({ error: "Ya existe un usuario con este correo" });
+            } else {
+                // Generar el hash de la contraseña utilizando bcrypt
+                bcrypt.hash(password, 10, (err, hash) => {
+                    if (err) {
+                        console.error("Error al generar el hash de la contraseña", err);
+                        res.status(500).json({ error: "Error al generar el hash de la contraseña" });
+                    } else {
+                        // Si no existe un usuario con el mismo correo y se generó el hash de la contraseña, procedemos a insertar el nuevo usuario
+                        connection.query("CALL sp_insertarusuarioadm(?, ?, ?, ?, ?)", [nombre, correo, hash, contacto, rol], (error, results) => {
+                            if (error) {
+                                console.error("No se creó el usuario correctamente", error);
+                                res.status(500).json({ error: "No se creó el usuario correctamente" });
+                            } else {
+                                console.log("Se agregó el usuario correctamente");
+                                res.json({ Message: "El usuario se creó correctamente" });
+                            }
+                        });
+                    }
+                });
+            }
+        }
+    });
+}
 
 const verifyToken = (req, res, next) => {
     const token = req.headers.authorization;
@@ -158,6 +194,7 @@ module.exports = {
     obtenerUsuarios,
     obtenerUsuarioPorId,
     crearUsuario,
+    crearUsuarioAdmin,
     borrarUsuario,
     actualizarUsuario,
     Login,
