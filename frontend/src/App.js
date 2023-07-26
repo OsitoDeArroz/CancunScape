@@ -9,29 +9,29 @@ import Footer from './componentes/Footer';
 import Registro from './Paginas/registro';
 import Carrito from './componentes/Carrito';
 import DescripcionTour from './componentes/DescripcionTour';
-import PaquetesAdmin from './Paginas/admin/tourAdmin';
-import UsuariosAdmin from './Paginas/admin/usuariosAdmin';
-import ReservasAdmin from './Paginas/admin/reservasAdmin';
+import Administrador from './Paginas/administrador';  
+import Usuariosadmin from './Paginas/usuariosadmin';
 
 function App() {
   return (
     <>
       <div className="app app-container main">
-          <BrowserRouter>
-            <Routes>
-              <Route path='/' element={<Inicio />}></Route>
-              <Route path='/paquetes' element={<Paquetes />}></Route>
-              <Route path='/promociones' element={<Promociones />}></Route>
-              <Route path='/nosotros' element={<Nosotros />}></Route>
-              <Route path='/descripcion/:id' element={<DescripcionTour />}></Route>
-              <Route path='/login' element={<Login />}></Route>
-              <Route path='/registro' element={<Registro />}></Route>
-              <Route path='/carrito/:id' element={<Carrito />}></Route>
-              <Route path='/toursadmin' element={<PaquetesAdmin />}></Route>
-              <Route path='/usuariosadmin' element={<UsuariosAdmin />}></Route>
-              <Route path='/reservasadmin' element={<ReservasAdmin />}></Route>
-            </Routes>
-          </BrowserRouter>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/' element={<Inicio />}></Route>
+            <Route path='/paquetes' element={<Paquetes />}></Route>
+            <Route path='/promociones' element={<Promociones />}></Route>
+            <Route path='/nosotros' element={<Nosotros />}></Route>
+            <Route path='/descripcion/:id' element={<DescripcionTour />}></Route>
+            <Route path='/login' element={<Login />}></Route>
+            <Route path='/registro' element={<Registro />}></Route>
+            <Route path='/carrito/:id' element={<Carrito />}></Route>
+            <Route path='/paquetesadmin' element={<Administrador />}></Route>
+            <Route path='/usuariosadmin' element={<Usuariosadmin />}></Route> 
+            <Route path='/pago' element={<Usuariosadmin />}></Route> 
+
+          </Routes>
+        </BrowserRouter>
       </div>
       <Footer />
 
