@@ -25,10 +25,17 @@ INSERT INTO usuario (
 ) 
 VALUES 
   (
-    'Abiud Garduza Mejia', 
-    'abiudgarduza93@gmail.com', 
-    AES_ENCRYPT('13122003A', '13122003A'), 
-    9982242489, 
+    'Boris Joaquin Victorio Cruz', 
+    '123@gmail.com', 
+    '$2b$10$1ViZI9S9zEG2ee4jNy4e6uRlc9/a1zn6n.ygyji19S9fgGwmGGjrS',
+    1234567890, 
+    1
+  ),
+  (
+	'Carlos Yahir Velazquez de la Cruz', 
+    'yahir@gmail.com', 
+    '$2b$10$1ViZI9S9zEG2ee4jNy4e6uRlc9/a1zn6n.ygyji19S9fgGwmGGjrS',
+    1234567890, 
     2
   );
 CREATE TABLE tours (
@@ -154,9 +161,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE sp_mostrarusuarios()
 BEGIN
-    SELECT usuario.nombre_completo, usuario.correo_electronico, usuario.password_usuario, usuario.fecha_registro, usuario.contacto, rol.nombre_rol
-    FROM usuario
-    INNER JOIN rol ON usuario.id_rol_id = rol.id_rol;
+    SELECT * FROM usuario INNER JOIN rol ON usuario.id_rol_id = rol.id_rol;
 END //
 DELIMITER ;
 
@@ -270,12 +275,6 @@ DELIMITER //
  END
  DELIMITER ;
  
-DELIMITER $$
-CREATE PROCEDURE sp_mostrarusuarioporid( IN p_id_usuario INT )
-BEGIN
-	SELECT * FROM usuarios WHERE id_usuario = p_id_usuario;
- END$$
-DELIMITER ;
 
  DELIMITER //
  CREATE PROCEDURE sp_insertartour( IN nombre VARCHAR(100), IN descripcion VARCHAR(500), IN p_fecha DATETIME, IN p_duracion INT, IN p_lugar VARCHAR(300), IN p_imagen TEXT, IN p_precio INT)
@@ -283,3 +282,26 @@ DELIMITER ;
 	INSERT INTO tours ( nombre_tours, descripcion_tours, fecha_y_hora, duracion, lugar, imagen,  precio) VALUES (nombre, descripcion, p_fecha, p_duracion, p_lugar, p_imagen, p_precio);
  END//
  DELIMITER ;
+ 
+ DELIMITER $$
+CREATE PROCEDURE sp_insertarusuarioadm(
+ IN p_nombre_completo VARCHAR(100),
+  IN p_correo_electronico VARCHAR(100),
+ IN p_password_usuario VARCHAR(255),
+ IN p_contacto INT(10),
+ IN p_rol INT
+ )
+BEGIN 
+ INSERT INTO usuario (nombre_completo, correo_electronico, password_usuario, fecha_registro, contacto, id_rol_id)
+ VALUES (p_nombre_completo, p_correo_electronico, p_password_usuario, NOW(),
+ p_contacto, p_rol);
+ END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE sp_mostrartodasreservas()
+BEGIN
+SELECT * FROM reservas INNER JOIN usuario ON reservas.id_usuario_id = usuario.id_usuario;
+END$$
+DELIMITER ;
+
