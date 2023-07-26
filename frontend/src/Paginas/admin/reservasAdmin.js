@@ -3,7 +3,6 @@ import { FaPlus, FaBrush } from 'react-icons/fa';
 import { Button, Modal, Form, DatePicker, Schema, InputPicker } from "rsuite";
 import Encabezadoadministrador from "../../componentes/admin/Encabezadoadministrador";
 import axios from "axios";
-import TarjetaCarrito from "../../componentes/TarjetaCarrito";
 import isBefore from 'date-fns/isBefore';
 import TarjetaAdminReservas from "../../componentes/admin/TarjetaAdminReservas";
 
@@ -106,32 +105,26 @@ function ReservasAdmin() {
                     >
                         Limpiar búsqueda
                     </Button>
-                    <Button
-                        color="green"
-                        appearance="primary"
-                        startIcon={<FaPlus />}
-                        onClick={handleOpen}
-                    >
-                        Agregar reserva
-                    </Button>
                 </Form>
             </div>
             <hr />
             <div className="container">
-                {filteredReservas.map(reserva => (
-                    <TarjetaAdminReservas
-                        key={reserva.id_reservas}
-                        imgSrc={reserva.imagen}
-                        Titulo={reserva.nombre_tours}
-                        Fecha={reserva.fecha_reserva}
-                        Precio={reserva.precio_unitario}
-                        Adultos={reserva.cant_adultos}
-                        Ninos={reserva.cant_ninos}
-                        Reservacion={reserva.id_reservas}
-                        tour={reserva.id_tours_id}
-                        nombre={reserva.nombre_completo}
-                    />
-                ))}
+                <div className="row">
+                    {filteredReservas.map(reserva => (
+                        <TarjetaAdminReservas
+                            key={reserva.id_reservas}
+                            imgSrc={reserva.imagen}
+                            Titulo={reserva.nombre_tours}
+                            Fecha={reserva.fecha_reserva}
+                            Precio={reserva.precio_unitario * reserva.cant_adultos + reserva.cant_ninos * (reserva.precio_unitario - 100)}
+                            Adultos={reserva.cant_adultos}
+                            Ninos={reserva.cant_ninos}
+                            Reservacion={reserva.id_reservas}
+                            tour={reserva.id_tours_id}
+                            nombre={reserva.nombre_completo}
+                        />
+                    ))}
+                </div>
             </div>
 
             <Modal open={open} onClose={handleClose}>

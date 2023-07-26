@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Encabezado from "../componentes/Encabezado";
-import TarjetaTour from "../componentes/TarjetaTour";
 import axios from "axios";
+import Tarjetapromocion from "../componentes/Tarjetapromocion";
 
 function Promociones() {
-    const [tours, setTours] = useState([]);
+    const [promociones, setPromociones] = useState([]);
 
     useEffect(() => {
         // Hacer la solicitud GET a la API para obtener los datos de los tours
-        axios.get('http://localhost:3001/tours')
+        axios.get('http://localhost:3001/promociones')
             .then(response => {
                 // En este punto, la respuesta contiene los datos del servidor
-                const toursData = response.data[0]; // Obtenemos la primera parte de la respuesta que contiene los datos de los tours
-                setTours(toursData); // Actualizamos el estado con los datos recibidos
+                const promocionesData = response.data; // La respuesta es un array de promociones
+                setPromociones(promocionesData); // Actualizamos el estado con los datos recibidos
             })
             .catch(error => {
                 console.error('Error al hacer la solicitud:', error);
@@ -24,23 +24,22 @@ function Promociones() {
             <Encabezado />
             <div className="container">
                 <div className="row">
-                    {tours.map(tour => (
-                        <TarjetaTour
-                            imgSrc={tour.imagen}
-                            title={tour.nombre_tours}
-                            description={tour.descripcion_tours}
-                            duration={tour.duracion}
-                            price={tour.precio}
-                            link={tour.id_tours}
+                    {promociones.map(promocion => (
+                        <Tarjetapromocion
+                            key={promocion.id_promociones}
+                            imgSrc={promocion.imagen}
+                            title={promocion.titulo_promocion}
+                            description={promocion.descripcion_promocion}
+                            duration={promocion.duracion}
+                            previous_price={promocion.precio_anterior}
+                            new_price={promocion.precio_nuevo}
+                            link={promocion.id_promociones}
                         />
                     ))}
                 </div>
             </div>
-
         </>
-    )
+    );
 }
 
 export default Promociones;
-
-

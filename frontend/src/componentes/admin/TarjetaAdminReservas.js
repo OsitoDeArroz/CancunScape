@@ -116,7 +116,7 @@ function TarjetaAdminReservas({ imgSrc, Titulo, Fecha, Precio, Adultos, Ninos, R
                     <p className="card-text" style={cardTextStyle}>Adultos: {Adultos}</p>
                     <p className="card-text" style={cardTextStyle}>Niños: {Ninos}</p>
                     <p className="card-text" style={cardTextStyle}>Nombre: {nombre}</p>
-                    <h5 className="card-text" style={cardTextStyle}>Precio unitario: MXN {Precio}</h5>
+                    <h5 className="card-text" style={cardTextStyle}>Total: MXN {Precio}</h5>
                     <ButtonToolbar >
                         <Button appearance="primary" startIcon={<FaRegEdit />} onClick={handleOpen}>
                             Editar

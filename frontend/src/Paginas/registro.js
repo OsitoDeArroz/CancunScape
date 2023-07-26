@@ -100,8 +100,9 @@ function Registro() {
                         type="password"
                         autoComplete="off"
                     />
-
-                    <Button color="green" appearance="primary" onClick={handleSubmit}> Finalizar </Button>
+                    <Link to="/login">
+                        <Button color="green" appearance="primary" onClick={handleSubmit}> Finalizar </Button>
+                    </Link>
                     <Link to="/">
                         <Button color="red" appearance="subtle">Cancelar</Button>
                     </Link>

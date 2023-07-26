@@ -10,6 +10,7 @@ import TarjetaTotalCarrito from "./TarjetaTotalCarrito";
 function Carrito() {
     const id = 2;
     const [reservas, setReservas] = useState([]);
+    
 
     useEffect(() => {
         axios.get(`http://localhost:3001/reservas/${id}`)
@@ -45,7 +46,7 @@ function Carrito() {
                                     imgSrc={reserva.imagen}
                                     Titulo={reserva.nombre_tours}
                                     Fecha={reserva.fecha}
-                                    Precio={reserva.precio_unitario}
+                                    Precio={reserva.precio_unitario * reserva.cant_adultos + reserva.cant_ninos * (reserva.precio_unitario - 100)}
                                     Adultos={reserva.cant_adultos}
                                     Ninos={reserva.cant_ninos}
                                     Reservacion={reserva.id_reservas}
@@ -53,6 +54,7 @@ function Carrito() {
                                 />
                             ))}
                         </div>
+                        
                         <div className="col-lg-6">
                             <div align='center'>
                                 <div className="card mb-3">

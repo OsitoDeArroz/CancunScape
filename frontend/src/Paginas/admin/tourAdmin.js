@@ -92,8 +92,6 @@ function TourAdmin() {
             });
     }
 
-    const Textarea = React.forwardRef((props, ref) => <Input {...props} as="textarea" ref={ref} />);
-
     return (
         <>
             <Encabezadoadministrador />
@@ -120,7 +118,7 @@ function TourAdmin() {
                             nombre_tours={tour.nombre_tours}
                             descripcion_tours={tour.descripcion_tours}
                             duracion={tour.duracion}
-                            fecha={tour.fecha_y_hora}
+                            fecha={tour.fecha}
                             precio={tour.precio}
                             id_tours={tour.id_tours}
                             lugar={tour.lugar}
@@ -163,12 +161,11 @@ function TourAdmin() {
                         </Form.Group>
                         <Form.Group>
                             <Form.ControlLabel>Descripcion:</Form.ControlLabel>
-                            <Form.Control
+                            <Input 
+                                as="textarea" 
+                                rows={3}                                
                                 name="descripcion" // Asignamos el nombre del campo en el estado formValue
-                                rows={5}
-                                accepter={Textarea}
-                                onChange={(value) => setFormValue({ ...formValue, descripcion: value })} // Actualizamos el valor del campo en el estado formValue
-                            />
+                                onChange={(value) => setFormValue({ ...formValue, descripcion: value })}  />
                         </Form.Group>
                         <Form.Group>
                             <Form.ControlLabel>Lugar:</Form.ControlLabel>

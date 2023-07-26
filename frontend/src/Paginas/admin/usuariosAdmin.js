@@ -37,7 +37,7 @@ function UsuariosAdmin() {
         rol: ''
     });
     
-
+   
     useEffect(() => {
         // Hacer la solicitud GET a la API para obtener los datos de los usuarios
         axios.get('http://localhost:3001/usuarios')
@@ -107,9 +107,10 @@ function UsuariosAdmin() {
         axios.delete(`http://localhost:3001/usuarios/${id_usuario}`)
             .then(response => {
                 // Actualizar la lista de usuarios después de eliminar el usuario
-                window.location.reload();
+                window.location.reload()
             })
     };
+
 
 
     return (
@@ -121,6 +122,7 @@ function UsuariosAdmin() {
                         <Form.ControlLabel>Búsqueda:</Form.ControlLabel>
                         <Form.Control style={{ width: 300 }}
                             onChange={(value) => setSearchTerm(value)}
+                            name="buscar"
                             value={searchTerm}
                         />
                     </Form.Group>
@@ -136,7 +138,6 @@ function UsuariosAdmin() {
                         <th>Correo</th>
                         <th>Teléfono</th>
                         <th>Rol</th>
-                        <th>Editar</th>
                         <th>Eliminar</th>
                         
                     </tr>
@@ -148,9 +149,6 @@ function UsuariosAdmin() {
                             <td>{usuario.correo_electronico}</td>
                             <td>{usuario.contacto}</td>
                             <td>{usuario.nombre_rol}</td>
-                            <td>
-                                <Button appearance="primary" startIcon={<FaRegEdit />} > </Button>
-                            </td>
                             <td>
                                 <Button color="red" appearance="primary" startIcon={<FaTrash />} onClick={() => handleDeleteUsuario(usuario.id_usuario)}> </Button>
                             </td>

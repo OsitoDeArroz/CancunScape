@@ -16,19 +16,18 @@ const location = useLocation();
                 </a>
                 <div className="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
                     <div className="navbar-nav">
-                        <Link to="/toursadmin" className={`nav-item nav-link mx-3 ${location.pathname === '/toursadmin' ? 'active' : ''}`}>
+                        <Link to="/admin/paquetes" className={`nav-item nav-link mx-3 ${location.pathname === '/admin/paquetes' ? 'active' : ''}`}>
                             Paquetes
                         </Link>
-                        <Link to="/reservasadmin" className={`nav-item nav-link mx-3 ${location.pathname === '/reservasadmin' ? 'active' : ''}`}>
+                        <Link to="/admin/reservas" className={`nav-item nav-link mx-3 ${location.pathname === '/admin/reservas' ? 'active' : ''}`}>
                             Reservas
                         </Link>
-                        <Link to="/usuariosadmin" className={`nav-item nav-link mx-3 ${location.pathname === '/usuariosadmin' ? 'active' : ''}`}>
+                        <Link to="/admin/usuarios" className={`nav-item nav-link mx-3 ${location.pathname === '/admin/usuarios' ? 'active' : ''}`}>
                             Usuarios
                         </Link>
-                        <></>
                     </div>
                 </div>
-                <Link to="/login" className="navbar-brand">
+                <Link to="/admin/login" className="navbar-brand">
                     <i className="bi bi-person fs-4"></i>
                 </Link>
             </nav>

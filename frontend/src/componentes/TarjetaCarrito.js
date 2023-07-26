@@ -44,7 +44,7 @@ function TarjetaCarrito({ imgSrc, Titulo, Fecha, Precio, Adultos, Ninos, Reserva
         axios.patch(`http://localhost:3001/reservas`, {
             id_reserva: Reservacion,
             fecha: fecha,
-            usuario: 1, // Coloca el ID del usuario que realiza la reserva
+            usuario: 2, // Coloca el ID del usuario que realiza la reserva
             id_tour: tour,
             adultos: adultos,
             ninos: ninos
@@ -115,7 +115,7 @@ function TarjetaCarrito({ imgSrc, Titulo, Fecha, Precio, Adultos, Ninos, Reserva
                     <p className="card-text" style={cardTextStyle}>Fecha: {Fecha}</p>
                     <p className="card-text" style={cardTextStyle}>Adultos: {Adultos}</p>
                     <p className="card-text" style={cardTextStyle}>Niños: {Ninos}</p>
-                    <h5 className="card-text" style={cardTextStyle}>Precio unitario: MXN {Precio}</h5>
+                    <h5 className="card-text" style={cardTextStyle}>Precio: MXN {Precio}</h5>
                     <ButtonToolbar >
                         <Button appearance="primary" startIcon={<FaRegEdit />} onClick={handleOpen}>
                             Editar

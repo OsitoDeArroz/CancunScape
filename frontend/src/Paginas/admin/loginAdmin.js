@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Button, Schema, ButtonGroup, Notification } from 'rsuite';
 import { Link, useNavigate } from 'react-router-dom';
-import Encabezado from "../componentes/Encabezado";
+import Encabezado from "../../componentes/admin/EncabezadoAdminLogin";
 
 import axios from "axios";
 
@@ -24,7 +24,7 @@ const TextField = React.forwardRef((props, ref) => {
     );
 });
 
-function Login() {
+function Loginadmin() {
     const formRef = React.useRef();
     const navigate = useNavigate();
     const [formError, setFormError] = React.useState({});
@@ -47,7 +47,14 @@ function Login() {
         axios.post("http://localhost:3001/usuarios/login", userData)
             .then(response => {
                 if (response.data.success) {
-                    navigate("/");
+                    // Redirección en función del rol del usuario
+                    if (response.data.usuario.id_rol_id === 1) {
+                        // Usuario es administrador, redirigir a la parte de administrador
+                        navigate("/admin/paquetes");
+                    } else if (response.data.usuario.id_rol_id === 2) {
+                        // Usuario es cliente, redirigir al inicio
+                        navigate("/");
+                    }
                 } else {
                     console.log(response.data.message);
                 }
@@ -86,9 +93,6 @@ function Login() {
                             <Button color="red" appearance="subtle">Cancelar</Button>
                         </Link>
                     </ButtonGroup>
-                    <Link to="/registro">
-                        <Button color="yellow" appearance="subtle">Crear cuenta</Button>
-                    </Link>
                 </Form>
 
             </div>
@@ -96,4 +100,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default Loginadmin;

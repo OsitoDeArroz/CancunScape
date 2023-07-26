@@ -102,11 +102,46 @@ CREATE TABLE reservas (
         REFERENCES tours (id_tours)
 );
 
+CREATE TABLE PROMOCIONES (
+  id_promociones INT NOT NULL AUTO_INCREMENT,
+  id_tours_id INT NOT NULL,
+  titulo_promocion VARCHAR(100) NOT NULL, 
+  descripcion_promocion VARCHAR(500) NOT NULL, 
+  fecha_y_hora DATETIME NOT NULL, 
+  duracion INT NOT NULL, 
+  lugar VARCHAR(300) NOT NULL, 
+  imagen TEXT, 
+  precio_anterior INT NOT NULL,
+  precio_nuevo INT NOT NULL,
+  PRIMARY KEY (id_promociones),
+  FOREIGN KEY (id_tours_id) REFERENCES tours (id_tours)
+);
+
+	INSERT INTO PROMOCIONES (
+	  id_tours_id, titulo_promocion, descripcion_promocion, 
+	  fecha_y_hora, duracion, lugar, imagen, 
+	  precio_anterior,precio_nuevo
+	) 
+	VALUES 
+	  (
+		1, "Parque Xplor con todo incluido", 
+		"No dejes pasar la oportunidad de visitar el parque más famoso del mundo en su tipo, Para que no te pierdas ni un minuto de este día lleno de aventuras y actividades, te recogemos temprano en tu hotel y después de cerca de una hora de viaje llegas al Parque Xplor, en el corazón de la selva. A partir de aquí, pura adrenalina, hamacuatizar, deslizarte en tirolesas, recorrer la selva en vehículos anfibios, pasear por cavernas donde ves las antiguas formaciones de estalactitas y estalagmitas en los r", 
+		"2023-07-24 00:00:00", 8, "Xcaret", 
+		"https://media.staticontent.com/media/pictures/cffb3370-2a72-4c94-8f6e-1c9e7e4f6335/1366x406", 
+		3193, 2100
+	  )
 
 DELIMITER //
 CREATE PROCEDURE sp_mostrartours()
 BEGIN
     SELECT * FROM tours;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE sp_mostrarpromociones()
+BEGIN
+    SELECT * FROM promociones;
 END //
 DELIMITER ;
 
@@ -304,4 +339,3 @@ BEGIN
 SELECT * FROM reservas INNER JOIN usuario ON reservas.id_usuario_id = usuario.id_usuario;
 END$$
 DELIMITER ;
-

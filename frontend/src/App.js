@@ -9,8 +9,11 @@ import Footer from './componentes/Footer';
 import Registro from './Paginas/registro';
 import Carrito from './componentes/Carrito';
 import DescripcionTour from './componentes/DescripcionTour';
-import Administrador from './Paginas/administrador';  
-import Usuariosadmin from './Paginas/usuariosadmin';
+import Administrador from './Paginas/admin/tourAdmin';  
+import Usuariosadmin from './Paginas/admin/usuariosAdmin';
+import Reservasadmin from './Paginas/admin/reservasAdmin';
+import Loginadmin from './Paginas/admin/loginAdmin';
+import Descripcionpromociones from './componentes/Descripcionpromociones';
 
 function App() {
   return (
@@ -22,12 +25,15 @@ function App() {
             <Route path='/paquetes' element={<Paquetes />}></Route>
             <Route path='/promociones' element={<Promociones />}></Route>
             <Route path='/nosotros' element={<Nosotros />}></Route>
+            <Route path='/descripcionpromociones/:id' element={<Descripcionpromociones />}></Route>
             <Route path='/descripcion/:id' element={<DescripcionTour />}></Route>
             <Route path='/login' element={<Login />}></Route>
             <Route path='/registro' element={<Registro />}></Route>
             <Route path='/carrito/:id' element={<Carrito />}></Route>
-            <Route path='/paquetesadmin' element={<Administrador />}></Route>
-            <Route path='/usuariosadmin' element={<Usuariosadmin />}></Route> 
+            <Route path='/admin/paquetes' element={<Administrador />}></Route>
+            <Route path='/admin/usuarios' element={<Usuariosadmin />}></Route> 
+            <Route path='/admin/reservas' element={<Reservasadmin />}></Route> 
+            <Route path='/admin/login' element={<Loginadmin />}></Route> 
             <Route path='/pago' element={<Usuariosadmin />}></Route> 
 
           </Routes>
