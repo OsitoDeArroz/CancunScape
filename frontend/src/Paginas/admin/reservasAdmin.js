@@ -45,7 +45,6 @@ function ReservasAdmin() {
             .then(response => {
                 const reservasData = response.data; // Acceder a la propiedad "reservas" de la respuesta
                 setReservas(reservasData);
-                console.log(reservasData);
             })
             .catch(error => {
                 console.error('Error al hacer la solicitud:', error);
@@ -115,13 +114,12 @@ function ReservasAdmin() {
                             key={reserva.id_reservas}
                             imgSrc={reserva.imagen}
                             Titulo={reserva.nombre_tours}
-                            Fecha={reserva.fecha_reserva}
+                            Fecha={reserva.fecha}
                             Precio={reserva.precio_unitario * reserva.cant_adultos + reserva.cant_ninos * (reserva.precio_unitario - 100)}
                             Adultos={reserva.cant_adultos}
                             Ninos={reserva.cant_ninos}
                             Reservacion={reserva.id_reservas}
-                            tour={reserva.id_tours_id}
-                            nombre={reserva.nombre_completo}
+                            nombre={reserva.nombre}
                         />
                     ))}
                 </div>

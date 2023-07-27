@@ -113,7 +113,6 @@ function TarjetaAdminReservas({ imgSrc, Titulo, Fecha, Precio, Adultos, Ninos, R
                     <div className="card-body card-color">
                         <h4 className="card-title" style={cardTitleStyle}>{Titulo}</h4>
                         <p className="card-text" style={cardTextStyle}>Fecha: {Fecha}</p>
-                        <p className="card-text" style={cardTextStyle}>ID: {tour}</p>
                         <p className="card-text" style={cardTextStyle}>Adultos: {Adultos}</p>
                         <p className="card-text" style={cardTextStyle}>Niños: {Ninos}</p>
                         <p className="card-text" style={cardTextStyle}>Nombre: {nombre}</p>
