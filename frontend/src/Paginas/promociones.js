@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Encabezado from "../componentes/Encabezado";
 import axios from "axios";
 import Tarjetapromocion from "../componentes/Tarjetapromocion";
+import MainHeader from "../componentes/MainHeader";
 
 function Promociones() {
     const [promociones, setPromociones] = useState([]);
@@ -21,7 +21,7 @@ function Promociones() {
 
     return (
         <>
-            <Encabezado />
+            <MainHeader />
             <div className="container">
                 <div className="row">
                     {promociones.map(promocion => (

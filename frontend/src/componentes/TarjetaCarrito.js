@@ -4,7 +4,7 @@ import { FaRegEdit, FaTrashAlt } from 'react-icons/fa';
 import axios from "axios";
 import isBefore from 'date-fns/isBefore';
 
-function TarjetaCarrito({ imgSrc, Titulo, Fecha, Precio, Adultos, Ninos, Reservacion, tour }) {
+function TarjetaCarrito({ imgSrc, Titulo, Fecha, Precio, Adultos, Ninos, Reservacion, tour, user }) {
     const cardTitleStyle = {
         fontFamily: 'Pacifico, cursive'
     }
@@ -28,7 +28,7 @@ function TarjetaCarrito({ imgSrc, Titulo, Fecha, Precio, Adultos, Ninos, Reserva
     };
 
     const handleEliminar = () => {
-        axios.delete(`http://localhost:3001/reservas/${Reservacion}`)
+        axios.delete(`http://localhost:3001/carritos/${Reservacion}`)
             .then(response => {
                 window.location.reload();
             })
@@ -41,10 +41,10 @@ function TarjetaCarrito({ imgSrc, Titulo, Fecha, Precio, Adultos, Ninos, Reserva
         const { fecha, adultos, ninos } = formValue; // Obtenemos los valores ingresados en el modal
         // Realizar la solicitud PATCH a la API con los datos actualizados
 
-        axios.patch(`http://localhost:3001/reservas`, {
-            id_reserva: Reservacion,
+        axios.patch(`http://localhost:3001/carritos`, {
+            id_carrito: Reservacion,
             fecha: fecha,
-            usuario: 2, // Coloca el ID del usuario que realiza la reserva
+            usuario: user, // Coloca el ID del usuario que realiza la reserva
             id_tour: tour,
             adultos: adultos,
             ninos: ninos

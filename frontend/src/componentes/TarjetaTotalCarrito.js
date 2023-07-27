@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Button, Modal, Form, Message } from "rsuite";
 import { FaCreditCard } from 'react-icons/fa';
+import axios from "axios";
 
-function TarjetaTotalCarrito({ Titulo, Precio, pagar }) {
+function TarjetaTotalCarrito({ Titulo, Precio, pagar, id, reservaData, nombre }) {
     const [showNotification, setShowNotification] = useState(false);
     const [open, setOpen] = useState(false);
     const handleClose = () => {
@@ -28,9 +29,53 @@ function TarjetaTotalCarrito({ Titulo, Precio, pagar }) {
         setShowNotification(true);
         setTimeout(() => {
             setShowNotification(false);
-            
+
+            reservaData.forEach((reservation) => {
+                const { fecha, id_usuario_id, id_tours_id, adultos, ninos, precio } = reservation;
+
+                axios.post(`http://localhost:3001/reservas/`, {
+                    fecha,
+                    usuario: id_usuario_id,
+                    tour: id_tours_id,
+                    adultos,
+                    ninos,
+                    precio,
+                })
+                    .then(response => {
+
+                        console.log("Reserva creada correctamente");
+                        // Optionally, you can do something with the response if needed.
+                    })
+                    .catch(error => {
+                        console.error('Error al crear la reserva:', error);
+                        // Optionally, you can handle the error if needed.
+                    });
+            });
+            clearCarrito();
         }, 5000);
+
+
     };
+
+    const clearCarrito = () => {
+
+        const id_usuario_id = reservaData.length > 0 ? reservaData[0].id_usuario_id : null;
+
+        // Check if id_usuario_id is available before making the delete request
+        if (id_usuario_id) {
+            axios.delete(`http://localhost:3001/carritos/borrar/${id_usuario_id}`)
+                .then(response => {
+                    window.location.reload();
+                })
+                .catch(error => {
+                    console.error('Error al eliminar la reserva:', error);
+                });
+        } else {
+            console.error('ID de usuario no encontrado en reservaData.');
+        }
+
+    };
+
 
     return (
         <>
@@ -57,7 +102,7 @@ function TarjetaTotalCarrito({ Titulo, Precio, pagar }) {
                             <Form.ControlLabel>Nombre de beneficiario:</Form.ControlLabel>
                             <Form.Control
                                 style={{ width: 300 }}
-                                value="Carlos Yahir Velazquez de la Cruz"
+                                value={nombre}
                                 name="nombre" // Actualizamos el valor del campo en el estado formValue
                             />
                         </Form.Group>
@@ -101,7 +146,7 @@ function TarjetaTotalCarrito({ Titulo, Precio, pagar }) {
                 <div>
                     <>
                         <Message showIcon type="success" header="Pago exitoso">
-                            El pago se realizo correctamente
+                            El pago se realizo correctamente, espere un momento...
                         </Message>
                     </>
                     <hr />

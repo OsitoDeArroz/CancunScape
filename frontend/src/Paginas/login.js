@@ -1,9 +1,9 @@
 import React from "react";
 import { Form, Button, Schema, ButtonGroup, Notification } from 'rsuite';
 import { Link, useNavigate } from 'react-router-dom';
-import Encabezado from "../componentes/Encabezado";
-
+import { useAuth } from '../componentes/AuthContext';
 import axios from "axios";
+import MainHeader from "../componentes/MainHeader";
 
 const { StringType } = Schema.Types;
 
@@ -25,6 +25,7 @@ const TextField = React.forwardRef((props, ref) => {
 });
 
 function Login() {
+    const { login } = useAuth();
     const formRef = React.useRef();
     const navigate = useNavigate();
     const [formError, setFormError] = React.useState({});
@@ -47,6 +48,7 @@ function Login() {
         axios.post("http://localhost:3001/usuarios/login", userData)
             .then(response => {
                 if (response.data.success) {
+                    login(response.data.usuario);
                     navigate("/");
                 } else {
                     console.log(response.data.message);
@@ -66,7 +68,7 @@ function Login() {
     return (
         <>
             <div align='center'>
-                <Encabezado />
+                <MainHeader />
                 <i className="bi bi-person fs-4"></i>
                 <Form
                     ref={formRef}

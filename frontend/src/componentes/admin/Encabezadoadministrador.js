@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
+import { useAuth } from "../AuthContext";
 
-function Encabezadoadministrador() {
+function EncabezadoadministradorLog() {
 const location = useLocation();
+const { logout } = useAuth();
 
     return (
         <>
@@ -27,12 +29,12 @@ const location = useLocation();
                         </Link>
                     </div>
                 </div>
-                <Link to="/admin/login" className="navbar-brand">
-                    <i className="bi bi-person fs-4"></i>
+                <Link to="/admin/login" className="navbar-brand" onClick={() => {logout()}}>
+                    <i className="bi bi-box-arrow-in-right fs-4"></i>
                 </Link>
             </nav>
         </>
     )
 }
 
-export default Encabezadoadministrador;
+export default EncabezadoadministradorLog;

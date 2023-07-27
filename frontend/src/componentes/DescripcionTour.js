@@ -1,16 +1,27 @@
 import React, { useState, useEffect } from "react";
-import Encabezado from "./Encabezado";
 import { Link, useParams } from "react-router-dom";
 import { Form, ButtonToolbar, Button, DatePicker, InputNumber } from "rsuite";
 import { FaCartPlus, FaArrowLeft } from "react-icons/fa";
 import "../assets/css/descripcionTour.css";
 import axios from "axios";
 import isBefore from 'date-fns/isBefore';
+import Cookies from "js-cookie";
+import MainHeader from "./MainHeader";
 
 function DescripcionTour() {
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        // Obtener el contenido de la cookie 'user' y convertirlo a un objeto
+        const storedUser = Cookies.get('user');
+        if (storedUser) {
+            setUser(JSON.parse(storedUser)); // Decoding the URI component
+        }
+    }, []);
 
     const { id } = useParams(); // Obtener la ID del tour desde la URL
-    const usuario = 2;
+    const usuario = user ? user.id_usuario : "2";
+
     const [tour, setTour] = useState(null);
     const [loading, setLoading] = useState(true);
     const [cantidadAdultos, setCantidadAdultos] = useState(1);
@@ -52,16 +63,16 @@ function DescripcionTour() {
 
     const reservarTour = () => {
         const reservaData = {
-            fecha: selectedDate, // fecha seleccionada
             usuario: usuario, // usuario que realiza la reserva 
             tour: tour[0].id_tours, // tour que se está reservando
             adultos: cantidadAdultos,
             ninos: cantidadNinos,
+            fecha: selectedDate, // fecha seleccionada
             precio: tour[0].precio
         };
-        console.log(reservaData);
+
         // Realizar la solicitud POST a la API con los datos de la reserva
-        axios.post("http://localhost:3001/reservas", reservaData)
+        axios.post("http://localhost:3001/carritos", reservaData)
             .then(response => {
                 window.location.reload(); // Recargamos la página del carrito después de hacer la reserva
             })
@@ -72,7 +83,7 @@ function DescripcionTour() {
 
     return (
         <>
-            <Encabezado />
+            <MainHeader />
 
             <div className="container">
                 <div className="row">
@@ -93,7 +104,7 @@ function DescripcionTour() {
                                 <Form>
                                     <Form.Group controlId="fecha-3">
                                         <Form.ControlLabel>Fecha y hora:</Form.ControlLabel>
-                                        <DatePicker style={{ width: 160 }} disabledDate={date => isBefore(date, new Date())} disabledHours={hour => hour < 6 || hour > 20} format="yyyy-MM-dd" onChange={value => setSelectedDate(value)} required />
+                                        <DatePicker style={{ width: 160 }} shouldDisableDate={date => isBefore(date, new Date())} shouldDisableHour={hour => hour < 6 || hour > 20} format="yyyy-MM-dd" onChange={value => setSelectedDate(value)} required />
                                     </Form.Group>
                                     <Form.Group controlId="adultos-3">
                                         <Form.ControlLabel>Adultos:</Form.ControlLabel>

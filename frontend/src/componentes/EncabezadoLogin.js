@@ -1,7 +1,11 @@
 import React from "react";
 import { Link, useLocation } from 'react-router-dom';
-function Encabezado() {
+import { useAuth } from './AuthContext';
+
+function EncabezadoLogin() {
     const location = useLocation();
+    const { user, logout } = useAuth();
+
     return (
         <>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossOrigin="anonymous" />
@@ -22,20 +26,23 @@ function Encabezado() {
                         <Link to="/promociones" className={`nav-item nav-link mx-3 ${location.pathname === '/promociones' ? 'active' : ''}`}>
                             Promociones
                         </Link>
+                        <Link to="/reservas" className={`nav-item nav-link mx-3 ${location.pathname === '/reservas' ? 'active' : ''}`}>
+                            Reservaciones
+                        </Link>
                         <Link to="/nosotros" className={`nav-item nav-link mx-3 ${location.pathname === '/nosotros' ? 'active' : ''}`}>
                             Acerca de nosotros
                         </Link>
                     </div>
                 </div>
-                <Link to="/carrito" className="navbar-brand">
+                <Link to={`/carrito/${user.id_usuario}`} className="navbar-brand">
                     <i className="bi bi-cart"></i>
                 </Link>
-                <Link to="/login" className="navbar-brand">
-                    <i className="bi bi-person fs-4"></i>
+                <Link to="/" className="navbar-brand" onClick={() => { logout() }}>
+                    <i className="bi bi-box-arrow-in-right fs-4"></i>
                 </Link>
             </nav>
         </>
     )
 }
 
-export default Encabezado;
+export default EncabezadoLogin;

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import Encabezado from "./Encabezado";
 import { Link, useParams } from "react-router-dom";
 import { Form, ButtonToolbar, Button, DatePicker, InputNumber } from "rsuite";
 import { FaCartPlus, FaArrowLeft } from "react-icons/fa";
 import "../assets/css/descripcionTour.css";
 import axios from "axios";
 import isBefore from 'date-fns/isBefore';
+import MainHeader from "./MainHeader";
 
 function Descripcionpromociones() {
     const { id } = useParams(); // Obtener la ID del tour desde la URL
@@ -69,7 +69,7 @@ function Descripcionpromociones() {
     };
     return (
         <>
-            <Encabezado />
+            <MainHeader />
 
             <div className="container">
                 <div className="row">

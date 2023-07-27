@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Encabezado from "../componentes/Encabezado";
 import Carrusel from "../componentes/Carrucel";
 import axios from "axios";
 import TarjetaTour from "../componentes/TarjetaTour";
+import MainHeader from "../componentes/MainHeader";
 
 function Inicio() {
     const [tours, setTours] = useState([]);
@@ -22,7 +22,7 @@ function Inicio() {
 
     return (
         <>
-            <Encabezado />
+            <MainHeader />
             <Carrusel />
             <hr />
             <div className="container">

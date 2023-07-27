@@ -81,7 +81,7 @@ function TarjetaAdminReservas({ imgSrc, Titulo, Fecha, Precio, Adultos, Ninos, R
                             <Form.Control
                                 style={{ width: 160 }}
                                 name="adultos" // Asignamos el nombre del campo en el estado formValue
-                                min={1} 
+                                min={1}
                                 max={25}
                                 onChange={(value) => setFormValue({ ...formValue, adultos: value })} // Actualizamos el valor del campo en el estado formValue
                             />
@@ -91,7 +91,7 @@ function TarjetaAdminReservas({ imgSrc, Titulo, Fecha, Precio, Adultos, Ninos, R
                             <Form.Control
                                 style={{ width: 160 }}
                                 name="ninos" // Asignamos el nombre del campo en el estado formValue
-                                min={0} 
+                                min={0}
                                 max={25}
                                 onChange={(value) => setFormValue({ ...formValue, ninos: value })} // Actualizamos el valor del campo en el estado formValue
                             />
@@ -108,26 +108,27 @@ function TarjetaAdminReservas({ imgSrc, Titulo, Fecha, Precio, Adultos, Ninos, R
                 </Modal.Footer>
             </Modal>
 
-            <div className="card mb-3">
-                <div className="card-body card-color">
-                    <h4 className="card-title" style={cardTitleStyle}>{Titulo}</h4>
-                    <p className="card-text" style={cardTextStyle}>Fecha: {Fecha}</p>
-                    <p className="card-text" style={cardTextStyle}>ID: {tour}</p>
-                    <p className="card-text" style={cardTextStyle}>Adultos: {Adultos}</p>
-                    <p className="card-text" style={cardTextStyle}>Niños: {Ninos}</p>
-                    <p className="card-text" style={cardTextStyle}>Nombre: {nombre}</p>
-                    <h5 className="card-text" style={cardTextStyle}>Total: MXN {Precio}</h5>
-                    <ButtonToolbar >
-                        <Button appearance="primary" startIcon={<FaRegEdit />} onClick={handleOpen}>
-                            Editar
-                        </Button>
-                        <Button color="red" appearance="primary" startIcon={<FaTrashAlt />} onClick={handleEliminar}>
-                            Eliminar
-                        </Button>
-                    </ButtonToolbar>
+            <div className="col-lg-4">
+                <div className="card mb-3">
+                    <div className="card-body card-color">
+                        <h4 className="card-title" style={cardTitleStyle}>{Titulo}</h4>
+                        <p className="card-text" style={cardTextStyle}>Fecha: {Fecha}</p>
+                        <p className="card-text" style={cardTextStyle}>ID: {tour}</p>
+                        <p className="card-text" style={cardTextStyle}>Adultos: {Adultos}</p>
+                        <p className="card-text" style={cardTextStyle}>Niños: {Ninos}</p>
+                        <p className="card-text" style={cardTextStyle}>Nombre: {nombre}</p>
+                        <h5 className="card-text" style={cardTextStyle}>Total: MXN {Precio}</h5>
+                        <ButtonToolbar >
+                            <Button appearance="primary" startIcon={<FaRegEdit />} onClick={handleOpen}>
+                                Editar
+                            </Button>
+                            <Button color="red" appearance="primary" startIcon={<FaTrashAlt />} onClick={handleEliminar}>
+                                Eliminar
+                            </Button>
+                        </ButtonToolbar>
+                    </div>
                 </div>
             </div>
-
 
         </>
     );

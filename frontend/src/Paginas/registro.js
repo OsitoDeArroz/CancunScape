@@ -1,8 +1,8 @@
 import React from "react";
 import { Form, Button, Schema, Notification } from 'rsuite';
 import { Link } from 'react-router-dom';
-import Encabezado from "../componentes/Encabezado";
 import axios from "axios";
+import MainHeader from "../componentes/MainHeader";
 
 const { StringType, NumberType } = Schema.Types;
 
@@ -78,7 +78,7 @@ function Registro() {
     return (
         <>
             <div align='center'>
-                <Encabezado />
+                <MainHeader />
                 <i className="bi bi-person fs-4"></i>
                 <Form
                     ref={formRef}

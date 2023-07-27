@@ -1,10 +1,10 @@
 import React from "react";
-import Encabezado from "../componentes/Encabezado";
+import MainHeader from "../componentes/MainHeader";
 
 function Nosotros() {
     return (
         <>
-            <Encabezado />
+            <MainHeader />
             <div className="container">
                 <div className="row">
                     <div className="col-lg-4">

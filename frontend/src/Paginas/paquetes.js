@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Encabezado from "../componentes/Encabezado";
 import TarjetaTour from "../componentes/TarjetaTour";
 import axios from 'axios';
+import MainHeader from '../componentes/MainHeader';
 
 function Paquetes() {
     const [tours, setTours] = useState([]);
@@ -21,7 +21,7 @@ function Paquetes() {
     
     return (
         <>
-            <Encabezado />
+            <MainHeader />
             <div className="container">
                 <div className="row">
                     {tours.map(tour => (
