@@ -26,22 +26,11 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Inicio />}></Route>
-            <Route path='/paquetes' element={<Paquetes />}></Route>
-            <Route path='/reservas' element={<Reservas />}></Route>
-            <Route path='/promociones' element={<Promociones />}></Route>
-            <Route path='/nosotros' element={<Nosotros />}></Route>
-            <Route path='/descripcionpromociones/:id' element={<Descripcionpromociones />}></Route>
-            <Route path='/descripcion/:id' element={<DescripcionTour />}></Route>
             <Route path='/login' element={<Login />}></Route>
             <Route path='/perfil' element={<Perfil />}></Route>
             <Route path='/registro' element={<Registro />}></Route>
-            <Route path='/carrito/:id' element={<Carrito />} ></Route>
-            <Route path='/carrito' element={<CarritoNoLogin />} ></Route>
-            <Route path='/admin/paquetes' element={<Administrador />}></Route>
             <Route path='/admin/usuarios' element={<Usuariosadmin />}></Route>
-            <Route path='/admin/reservas' element={<Reservasadmin />}></Route>
             <Route path='/admin/login' element={<Loginadmin />}></Route>
-            <Route path='/pago' element={<Usuariosadmin />}></Route>
           </Routes>
         </BrowserRouter>
       </div>

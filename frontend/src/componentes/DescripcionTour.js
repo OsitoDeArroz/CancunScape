@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate  } from "react-router-dom";
 import { Form, ButtonToolbar, Button, DatePicker, InputNumber } from "rsuite";
 import { FaCartPlus, FaArrowLeft } from "react-icons/fa";
 import "../assets/css/descripcionTour.css";
@@ -9,6 +9,7 @@ import Cookies from "js-cookie";
 import MainHeader from "./MainHeader";
 
 function DescripcionTour() {
+    const navigate = useNavigate();
     const [user, setUser] = useState(null);
 
     useEffect(() => {
@@ -20,7 +21,7 @@ function DescripcionTour() {
     }, []);
 
     const { id } = useParams(); // Obtener la ID del tour desde la URL
-    const usuario = user ? user.id_usuario : "2";
+    const usuario = user ? user.id_usuario : "";
 
     const [tour, setTour] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -62,23 +63,27 @@ function DescripcionTour() {
     };
 
     const reservarTour = () => {
-        const reservaData = {
-            usuario: usuario, // usuario que realiza la reserva 
-            tour: tour[0].id_tours, // tour que se está reservando
-            adultos: cantidadAdultos,
-            ninos: cantidadNinos,
-            fecha: selectedDate, // fecha seleccionada
-            precio: tour[0].precio
-        };
+        if (usuario) {
+            const reservaData = {
+                usuario: usuario, // usuario que realiza la reserva 
+                tour: tour[0].id_tours, // tour que se está reservando
+                adultos: cantidadAdultos,
+                ninos: cantidadNinos,
+                fecha: selectedDate, // fecha seleccionada
+                precio: tour[0].precio
+            };
 
-        // Realizar la solicitud POST a la API con los datos de la reserva
-        axios.post("http://localhost:3001/carritos", reservaData)
-            .then(response => {
-                window.location.reload(); // Recargamos la página del carrito después de hacer la reserva
-            })
-            .catch(error => {
-                console.error("Error al hacer la reserva:", error);
-            });
+            // Realizar la solicitud POST a la API con los datos de la reserva
+            axios.post("http://localhost:3001/carritos", reservaData)
+                .then(response => {
+                    window.location.reload(); // Recargamos la página del carrito después de hacer la reserva
+                })
+                .catch(error => {
+                    console.error("Error al hacer la reserva:", error);
+                });
+        }else{
+            navigate("/login")
+        }
     };
 
     return (

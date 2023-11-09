@@ -2,9 +2,14 @@ import React, { useState } from "react";
 import { Button, Modal, Form, Message } from "rsuite";
 import { FaCreditCard } from 'react-icons/fa';
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function TarjetaTotalCarrito({ Titulo, Precio, pagar, id, reservaData, nombre }) {
-    const [showNotification, setShowNotification] = useState(false);
+    const [showNotification, setShowNotification] = useState({
+        show: false,
+        message: "",
+        type: "success", // You can change the type to customize the message style
+    });
     const [open, setOpen] = useState(false);
     const handleClose = () => {
         setOpen(false);
@@ -15,7 +20,7 @@ function TarjetaTotalCarrito({ Titulo, Precio, pagar, id, reservaData, nombre })
         setOpen(true);
 
     };
-
+    const Navigate = useNavigate();
     const cardTitleStyle = {
         fontFamily: 'Pacifico, cursive'
     };
@@ -26,9 +31,17 @@ function TarjetaTotalCarrito({ Titulo, Precio, pagar, id, reservaData, nombre })
 
     const handlePago = () => {
         handleClose();
-        setShowNotification(true);
+        setShowNotification({
+            show: true,
+            message: "El pago se realizó correctamente, espere un momento...",
+            type: "success",
+        });
         setTimeout(() => {
-            setShowNotification(false);
+            setShowNotification({
+                show: false,
+                message: "",
+                type: "success",
+            });
 
             reservaData.forEach((reservation) => {
                 const { fecha, id_usuario_id, id_tours_id, adultos, ninos, precio } = reservation;
@@ -52,6 +65,7 @@ function TarjetaTotalCarrito({ Titulo, Precio, pagar, id, reservaData, nombre })
                     });
             });
             clearCarrito();
+            Navigate("/reservas")
         }, 5000);
 
 
@@ -142,14 +156,16 @@ function TarjetaTotalCarrito({ Titulo, Precio, pagar, id, reservaData, nombre })
                 </Modal.Footer>
             </Modal>
 
-            {showNotification && (
-                <div>
-                    <>
-                        <Message showIcon type="success" header="Pago exitoso">
-                            El pago se realizo correctamente, espere un momento...
-                        </Message>
-                    </>
-                    <hr />
+            {showNotification.show && (
+                <div className="overlay">
+                    <div className="message-container">
+                        <Message
+                            showIcon
+                            type={showNotification.type}
+                            header="Pago exitoso"
+                            description={showNotification.message}
+                        >El pago se realizo correctamente, espere un momento...</Message>
+                    </div>
                 </div>
             )}
         </>

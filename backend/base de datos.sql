@@ -22,7 +22,7 @@ CREATE TABLE usuario (
 INSERT INTO usuario (
   nombre_completo, correo_electronico, 
   password_usuario, contacto, id_rol_id
-) 
+)
 VALUES 
   (
     'Boris Joaquin Victorio Cruz', 
